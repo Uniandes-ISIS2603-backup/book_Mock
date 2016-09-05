@@ -1,32 +1,36 @@
-<div class="container-fluid">
+<div class="col-md-12">
+    <div class="container-fluid">
+        
+    <button class="btn btn-default" ui-sref="bookCreate">Create new Book</button>
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>    
+                    <th>Description</th>  
+                    <th>ISBN</th>    
+                    <th>Editorial</th>  
+                    <th>Image</th>  
+                    <th>Publishing Date</th>  
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in records">
+                    <td id="{{$index}}-name">{{record.name}}</td>
+                    <td id="{{$index}}-descrption">{{record.description}}</td>
+                    <td id="{{$index}}-isbn">{{record.isbn}}</td>
+                    <td id="{{$index}}-editorial">{{record.editorial.name}}</td>
+                    <td id="{{$index}}-image">{{record.image}}</td>
+                    <td id="{{$index}}-publishingdate">{{record.publishingdate}}</td>
+                    <td>
+                        <button id="{{$index}}-edit-btn" class="btn btn-default btn-sm" ui-sref="bookEdit({bookId: record.id})"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                        <button id="{{$index}}-delete-btn" class="btn btn-default btn-sm" ng-click="ctrl.deleteRecord(record)"><span class="glyphicon glyphicon-minus"></span> Remove</button>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>    
-                <th>Description</th>  
-                <th>ISBN</th>    
-                <th>Editorial</th>  
-                <th>Image</th>  
-                <th>Publishing Date</th>  
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="record in records">
-                <td id="{{$index}}-name">{{record.name}}</td>
-                <td id="{{$index}}-descrption">{{record.description}}</td>
-                <td id="{{$index}}-isbn">{{record.isbn}}</td>
-                   <td id="{{$index}}-editorial">{{record.editorial.name}}</td>
-                <td id="{{$index}}-image">{{record.image}}</td>
-                <td id="{{$index}}-publishingdate">{{record.publishingdate}}</td>
-                <td>
-                    <button id="{{$index}}-edit-btn" class="btn btn-default btn-sm" ui-sref="bookEdit({bookId: record.id})"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                    <button id="{{$index}}-delete-btn" class="btn btn-default btn-sm" ng-click="ctrl.deleteRecord(record)"><span class="glyphicon glyphicon-minus"></span> Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>
-
