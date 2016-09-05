@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="mainApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>books</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+        <script src="bower_components/angular-messages/angular-messages.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+      
+        <!-- Books -->
+        <script src="src/modules/books/books.mod.js" type="text/javascript"></script>
+        <script src="src/modules/books/books.ctrl.js" type="text/javascript"></script>
+        <!-- Authors -->
+        <script src="src/modules/authors/authors.mod.js" type="text/javascript"></script>
+        <script src="src/modules/authors/authors.ctrl.js" type="text/javascript"></script>
+        <!-- Editorials -->
+        <script src="src/modules/editorials/editorials.mod.js" type="text/javascript"></script>
+        <script src="src/modules/editorials/editorials.ctrl.js" type="text/javascript"></script>
+        
+        <!-- Reviews -->
+        <script src="src/modules/reviews/reviews.mod.js" type="text/javascript"></script>
+        <script src="src/modules/reviews/reviews.ctrl.js" type="text/javascript"></script>
+
+        <script src="src/app.js" type="text/javascript"></script> 
+    </head>
+    <body style="padding-top: 20px;">
+        <div class="container-fluid" class="col-md-12">   
+            <h3>Ejemplo Books</h3>
+            <ul class="nav nav-tabs">    
+                <!-- Menu para Books -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Books
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="bookCreate">Create</a></li>    
+                        <li><a ui-sref="booksList">List</a></li>       
+                    </ul>
+                </li>     
+                <!-- Menu para Authors -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Authors
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="authorCreate">Create</a></li>    
+                        <li><a ui-sref="authorsList">List</a></li>       
+                    </ul>
+                </li>   
+                <!-- Menu para Editorials -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Editorials
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="editorialCreate">Create</a></li>    
+                        <li><a ui-sref="editorialsList">List</a></li>       
+                    </ul>
+                </li> 
+            </ul>
+            <div ui-view="mainView"> </div>
+            <div ui-view="bottomView">
+            </div>
+        </div>
+    </body>
+</html>
