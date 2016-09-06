@@ -29,7 +29,7 @@ import javax.ws.rs.Produces;
  *
  * @citi Asistente
  */
-@Path("/books/{{idBook: \\\\d+}}/reviews")
+@Path("books/{idBook: \\d+}/reviews")
 @Produces("application/json")
 public class ReviewResource {
 
