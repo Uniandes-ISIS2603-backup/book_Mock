@@ -1,0 +1,23 @@
+<div class="col-md-12">
+    <div class="container-fluid">
+        <button class="btn btn-default" ui-sref="bookAuthorEdit">Edit Author</button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>    
+  
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in selectedAuthors">
+                    <td id="{{$index}}-name">{{record.name}}</td>  
+                    <td>
+                        <button id="{{$index}}-delete-btn" class="btn btn-default btn-sm" ng-click="ctrl.deleteBookAuthor(record)"><span class="glyphicon glyphicon-minus"></span>Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

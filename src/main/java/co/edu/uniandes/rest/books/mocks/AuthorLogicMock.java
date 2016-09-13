@@ -1,6 +1,5 @@
 package co.edu.uniandes.rest.books.mocks;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,9 +10,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 import co.edu.uniandes.rest.books.dtos.AuthorDTO;
+import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import java.util.Date;
-
 
 public class AuthorLogicMock {
 
@@ -38,9 +37,7 @@ public class AuthorLogicMock {
         // indica que se muestren todos los mensajes
         logger.setLevel(Level.INFO);
 
-        // muestra información 
-        logger.info("Inicializa la lista de authors");
-        logger.info("authors" + authors);
+  
     }
 
     /**
@@ -113,7 +110,7 @@ public class AuthorLogicMock {
         } else {
             for (AuthorDTO author : authors) {
                 // si existe una author con ese id
-                
+
                 if (Objects.equals(author.getName(), newAuthor.getName())) {
                     logger.severe("Ya existe una author con ese nombre");
                     throw new BookLogicException("Ya existe una author con ese nombre");
@@ -193,4 +190,45 @@ public class AuthorLogicMock {
         logger.severe("No existe un author con ese id");
         throw new BookLogicException("No existe un author con ese id");
     }
+
+    /**
+     * Actualiza la lista de autores de un book
+     *
+     * @param id identificador del book
+     * @param authors lista nueva de authors
+     * @return authors lista nueva de authors
+     * @throws BookLogicException cuando no existe una author con el id
+     * suministrado
+     */
+    public List<AuthorDTO> updateBookAuthors(Long id, List<AuthorDTO> updatedAuthors) throws BookLogicException {
+        logger.info("recibiendo solictud de modificar los autores del libro " + id + "con los autores [" );
+        for (int i= 0; i < updatedAuthors.size(); i++)
+            logger.info(updatedAuthors.get(i).toString()+ ",");
+        BookLogicMock blm = BookLogicMock.getInstance();
+        BookDetailDTO book = blm.getBook(id);
+        book.setAuthors(updatedAuthors);
+        logger.info("se actualizaron los autores del libro " + id + "con los autores " + book.getAuthors().toString());
+        return updatedAuthors;
+
+    }
+    
+    /**
+     * Actualiza la lista de autores de un book
+     *
+     * @param id identificador del book
+     * @param authors  de authors del libro id
+     * @return authors del libro id
+     * @throws BookLogicException cuando no existe una author con el id
+     * suministrado
+     */
+    public List<AuthorDTO> getBookAuthors(Long id) throws BookLogicException {
+        logger.info("recibiendo solictud de modificar los autores del libro " + id);
+        BookLogicMock blm = BookLogicMock.getInstance();
+        BookDetailDTO book = blm.getBook(id);
+       
+        return book.getAuthors();
+
+    }
+
+
 }

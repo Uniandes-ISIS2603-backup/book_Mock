@@ -26,9 +26,7 @@ public class BookDTO {
     // Relación a una editorial
     private EditorialDTO editorial;
 
-    // relación a cero o muchos reviews
-    private List<ReviewDTO> reviews = new ArrayList<>();
-
+ 
     /**
      * Constructor por defecto
      */
@@ -165,17 +163,4 @@ public class BookDTO {
         this.editorial = editorial;
     }
 
-    /**
-     * @return the reviews
-     */
-    public List<ReviewDTO> getReviews() {
-        return reviews;
-    }
-
-    /**
-     * @param reviews the reviews to set
-     */
-    public void setReviews(List<ReviewDTO> reviews) {
-        this.reviews = reviews;
-    }
 }

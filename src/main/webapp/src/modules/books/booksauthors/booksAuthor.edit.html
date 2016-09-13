@@ -1,0 +1,23 @@
+<div class="col-md-6">
+    <div class="container-fluid">
+
+        <ui-select multiple ng-model="ctrl.selectedAuthors" ng-disabled="disabled" 
+                   sortable="false" close-on-select="false">
+            <ui-select-match placeholder="Select author...">{{$item.name}}</ui-select-match>
+            <ui-select-choices repeat="author in allAuthors">
+                <div ng-bind-html="author.name"></div>
+            </ui-select-choices>
+        </ui-select>
+
+
+
+        <hr/>
+
+        <div class="form-group col-md-6">
+            <button type="button" ui-sref='bookAuthorsList'>Cancel</button>
+            <button type="button" ng-click='ctrl.updateBookAuthors(ctrl.selectedAuthors)' >Save</button>   
+        </div>
+        
+    </div>
+
+</div>

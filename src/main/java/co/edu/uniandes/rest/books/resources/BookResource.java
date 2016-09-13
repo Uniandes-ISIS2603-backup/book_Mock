@@ -6,6 +6,7 @@
 package co.edu.uniandes.rest.books.resources;
 
 import co.edu.uniandes.rest.books.dtos.BookDTO;
+import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import co.edu.uniandes.rest.books.mocks.BookLogicMock;
 
@@ -33,7 +34,7 @@ import javax.ws.rs.Produces;
 @Produces("application/json")
 public class BookResource {
 
-    BookLogicMock bookLogic = new BookLogicMock();
+    BookLogicMock bookLogic = BookLogicMock.getInstance();
 
     /**
      * Obtiene el listado de books.
@@ -55,7 +56,7 @@ public class BookResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public BookDTO getBook(@PathParam("id") Long id) throws BookLogicException {
+    public BookDetailDTO getBook(@PathParam("id") Long id) throws BookLogicException {
         return bookLogic.getBook(id);
     }
 
@@ -100,4 +101,12 @@ public class BookResource {
         bookLogic.deleteBook(id);
     }
 
+    @Path("{booksId: \\d+}/authors")
+    public Class<BookAuthorsResource> getBookAuthorsResource(@PathParam("booksId") Long booksId) throws BookLogicException {
+        BookDTO book = getBook(booksId);
+        if (book == null) {
+            throw new BookLogicException("El libro no existe");
+        }
+        return BookAuthorsResource.class;
+    }
 }

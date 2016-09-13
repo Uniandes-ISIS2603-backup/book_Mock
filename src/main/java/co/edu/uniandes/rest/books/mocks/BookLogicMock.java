@@ -5,6 +5,7 @@ package co.edu.uniandes.rest.books.mocks;
  *
  * @citi Asistente
  */
+import co.edu.uniandes.rest.books.dtos.AuthorDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import co.edu.uniandes.rest.books.dtos.BookDTO;
+import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.dtos.EditorialDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 
@@ -23,29 +25,40 @@ public class BookLogicMock {
     private final static Logger logger = Logger.getLogger(BookLogicMock.class.getName());
 
     // listado de books
-    private static ArrayList<BookDTO> books;
+    private static ArrayList<BookDetailDTO> books;
+    private static BookLogicMock instance = null;
 
     /**
      * Constructor. Crea los datos de ejemplo.
      */
-    public BookLogicMock() {
+    private BookLogicMock() {
 
-       
+        // listado de authores
         Date date = new Date();
-      
-        if (books == null) {
+
+        if (books
+                == null) {
             books = new ArrayList<>();
-            books.add(new BookDTO(1L, "Cien años de Soledad", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
-            books.add(new BookDTO(2L, "El Coronel no tiene quien le escriba", "123", "imagen", "Wonderful!", date, new EditorialDTO(2L, "Siruela")));
-            books.add(new BookDTO(3L, "Ojos de Perro Azul", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
+            books.add(new BookDetailDTO(1L, "Cien años de Soledad", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
+            books.add(new BookDetailDTO(2L, "El Coronel no tiene quien le escriba", "123", "imagen", "Wonderful!", date, new EditorialDTO(2L, "Siruela")));
+            books.add(new BookDetailDTO(3L, "Ojos de Perro Azul", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
         }
 
         // indica que se muestren todos los mensajes
         logger.setLevel(Level.INFO);
 
         // muestra información 
-        logger.info("Inicializa la lista de books");
-        logger.info("books" + books);
+        logger.info(
+                "Inicializa la lista de books");
+        logger.info(
+                "books" + books);
+    }
+
+    public static BookLogicMock getInstance() {
+        if (instance == null) {
+            instance = new BookLogicMock();
+        }
+        return instance;
     }
 
     /**
@@ -61,7 +74,12 @@ public class BookLogicMock {
         }
 
         logger.info("retornando todas las books");
-        return books;
+
+        ArrayList<BookDTO> booksMinimum = new ArrayList<>();
+        for (int i = 0; i < books.size(); i++) {
+            booksMinimum.add(books.get(i));
+        }
+        return booksMinimum;
     }
 
     /**
@@ -71,13 +89,13 @@ public class BookLogicMock {
      * @return book encontrada
      * @throws BookLogicException cuando la book no existe
      */
-    public BookDTO getBook(Long id) throws BookLogicException {
-        logger.info("recibiendo solicitud de book con id " + id);
+    public BookDetailDTO getBook(Long id) throws BookLogicException {
+        logger.info("getbook con id " + id);
 
         // busca la book con el id suministrado
-        for (BookDTO book : books) {
+        for (BookDetailDTO book : books) {
             if (Objects.equals(book.getId(), id)) {
-                logger.info("retornando book " + book);
+                logger.info("getbook " + book);
                 return book;
             }
         }
@@ -138,7 +156,7 @@ public class BookLogicMock {
 
         // agrega la book
         logger.info("agregando book " + newBook);
-        books.add(newBook);
+        books.add(new BookDetailDTO(newBook));
         return newBook;
     }
 

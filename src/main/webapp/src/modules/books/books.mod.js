@@ -39,7 +39,7 @@
                 }
             }).state('bookEdit', {
                 url: '/{bookId:int}/edit',
-                param: { 'bookId' : null},
+                param: {'bookId': null},
                 parent: 'books',
                 views: {
                     'bookView': {
@@ -47,8 +47,28 @@
                         controllerAs: 'ctrl',
                         templateUrl: basePath + 'books.create.html'
                     },
-                    'childsView': {
+                    'childView': {
                         templateUrl: basePath + 'books.instance.html'
+                    }
+                }
+            }).state('bookAuthorsList', {
+                url: '/authors/list',             
+                parent: 'bookEdit',
+                views: {                 
+                    'bookInstanceView': {
+                        controller: 'booksAuthorCtrl',
+                        controllerAs: 'ctrl',
+                        templateUrl: basePath + 'booksauthors/' + 'booksAuthor.list.html'
+                    }
+                }
+            }).state('bookAuthorEdit', {
+                url: '/authors/edit',             
+                parent: 'bookEdit',
+                views: {                 
+                    'bookInstanceView': {
+                        controller: 'booksAuthorCtrl',
+                        controllerAs: 'ctrl',
+                        templateUrl: basePath + 'booksauthors/' + 'booksAuthor.edit.html'
                     }
                 }
             });

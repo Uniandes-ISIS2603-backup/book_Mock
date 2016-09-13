@@ -4,6 +4,8 @@
         // External dependencies
         'ui.router',
         'ui.bootstrap',
+        'ui.select',
+        'ngSanitize',
         // Internal modules dependencies
         'authorModule',
         'editorialModule',
