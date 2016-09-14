@@ -19,7 +19,7 @@
                 model: '='
             },
             restrict: 'E',
-            templateUrl: 'src/datepicker.tpl.html',
+            templateUrl: 'src/utils/datepicker.tpl.html',
             controller: 'datePickerCtrl'
         };
     }]);
