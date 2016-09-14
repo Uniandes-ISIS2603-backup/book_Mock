@@ -1,5 +1,6 @@
 (function (ng) {
     var mod = ng.module("bookModule");
+    
 
     mod.controller("booksCtrl", ['$scope', '$state', '$stateParams', '$http', 'booksContext', 'editorialsContext',
         function ($scope, $state, $stateParams, $http, booksContext, editorialsContext) {
@@ -34,7 +35,8 @@
                     name: '' /*Tipo String*/,
                     image: '' /*Tipo String*/,
                     isbn: '' /*Tipo String*/,
-                    publishingdate: '' /*Tipo String to convert to Date*/,
+                    publishingdate: 'ss' /*Tipo String to convert to Date*/,
+                    required: true /*Tipo String to convert to Date*/,
                     editorial: {} /*Objeto que representa instancia de Editorial*/
                 };
 
@@ -72,41 +74,7 @@
                 }
                 ;
             };
-            // -----------------------------------------------------------------
-            // Funciones para manejar las fechas
-
-            $scope.popup = {
-                opened: false
-            };
-            $scope.dateOptions = {
-                dateDisabled: disabled,
-                formatYear: 'yy',
-                maxDate: new Date(2020, 5, 22),
-                minDate: new Date(),
-                startingDay: 1
-            };
-
-            this.today = function () {
-                $scope.dt = new Date();
-            };
-            this.today();
-
-            this.clear = function () {
-                $scope.dt = null;
-            };
-            this.setDate = function (year, month, day) {
-                $scope.dt = new Date(year, month, day);
-            };
-
-            this.open = function () {
-                $scope.popup.opened = true;
-            };
-
-            function disabled(data) {
-                var date = data.date,
-                        mode = data.mode;
-                return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-            }
+           
 
 
             // -----------------------------------------------------------------
