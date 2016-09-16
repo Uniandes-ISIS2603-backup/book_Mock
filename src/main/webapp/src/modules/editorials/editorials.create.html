@@ -1,10 +1,13 @@
+<div ng-messages="form.$error" multiple>
+            <ng-message when="required">
+                <alert type="warning">Please, Fill the required fields!</alert>
+            </ng-message>
+</div>
 <div class="col-md-6 well">
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="ctrl.closeAlert($index)" dismiss-on-timeout="5000">{{alert.msg}} </alert>
     <form novalidate name="form" id="editorial-form" role="form" ng-submit="form.$valid && ctrl.saveRecord(currentRecord.id)">
         
-        <div ng-messages="form.$error">
-            <div ng-message="required">Fill the required fields!</div>
-        </div>
+        
    
         <fieldset>
             <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
