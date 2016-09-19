@@ -16,7 +16,8 @@
     app.directive('datePicker', [function () {
         return {
             scope: {
-                model: '='
+                model: '=',
+                name: '@'
             },
             restrict: 'E',
             templateUrl: 'src/utils/datepicker.tpl.html',

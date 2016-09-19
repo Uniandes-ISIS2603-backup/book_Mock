@@ -1,8 +1,12 @@
 <div ng-messages="form.$error" multiple>
             <ng-message when="required">
                 <alert type="warning">Please, Fill the required fields!</alert>
-            </ng-message>
+            </ng-message>    <br>
+            <ng-message when="date">
+                <alert type="warning">Not a valid date!</alert>
+            </ng-message> 
 </div>
+
 <div class="col-md-12 well">
     <form novalidate name="form" id="book-form" role="form" ng-submit="form.$valid && ctrl.saveRecord(currentRecord.id)">
 
@@ -18,32 +22,32 @@
                 </div>
             </div>
             <!-- Description -->
-            <div class="form-group col-md-6" ng-class="{'has-success': form.name.$valid && form.name.$dirty, 'has-error': form.name.$invalid && (form.name.$dirty || form.$submitted)}" >
+            <div class="form-group col-md-6" ng-class="{'has-success': form.description.$valid && form.description.$dirty, 'has-error': form.description.$invalid && (form.description.$dirty || form.$submitted)}" >
                 <label for="description" class="col-md-2 control-label">Description</label>
                 <div class="col-md-10">
-                    <input id="name" name="description" class="form-control" type="text" ng-model="currentRecord.description" ng-init="currentRecord.description" required />
+                    <input id="description" name="description" class="form-control" type="text" ng-model="currentRecord.description" ng-init="currentRecord.description" required />
                 </div>
             </div>
             <!-- Image -->
-            <div class="form-group col-md-6" ng-class="{'has-success': form.name.$valid && form.name.$dirty, 'has-error': form.name.$invalid && (form.name.$dirty || form.$submitted)}" >
+            <div class="form-group col-md-6" ng-class="{'has-success': form.image.$valid && form.image.$dirty, 'has-error': form.image.$invalid && (form.image.$dirty || form.$submitted)}" >
                 <label for="image" class="col-md-2 control-label">Image</label>
                 <div class="col-md-10">
                     <input id="image" name="image" class="form-control" type="text" ng-model="currentRecord.image" ng-init="currentRecord.image" required />
                 </div>
             </div>
             <!-- ISBN -->
-            <div class="form-group col-md-6" ng-class="{'has-success': form.name.$valid && form.name.$dirty, 'has-error': form.name.$invalid && (form.name.$dirty || form.$submitted)}" >
+            <div class="form-group col-md-6" ng-class="{'has-success': form.isbn.$valid && form.isbn.$dirty, 'has-error': form.isbn.$invalid && (form.isbn.$dirty || form.$submitted)}" >
                 <label for="isbn" class="col-md-2 control-label">ISBN</label>
                 <div class="col-md-10">
                     <input id="isbn" name="isbn" class="form-control" type="text" ng-model="currentRecord.isbn" ng-init="currentRecord.isbn" required />
                 </div>
             </div>
             <!-- Publishing Date -->
-            <div class="form-group col-md-6" ng-class="{'has-success': form.name.$valid && form.name.$dirty, 'has-error': form.name.$invalid && (form.name.$dirty || form.$submitted)}" >
+            <div class="form-group col-md-6" ng-class="{'has-success': form.publishingdate.$valid && form.publishingdate.$dirty, 'has-error': form.publishingdate.$invalid && (form.publishingdate.$dirty || form.$submitted)}" >
 
                 <label for="PublishingDate" class="col-md-2 control-label">Publishing Date:</label>
                 <div class="col-md-10">
-                    <date-picker model="currentRecord.publishingdate"></date-picker>
+                    <date-picker name="publishingdate" model="currentRecord.publishingdate"></date-picker>
                 </div>
             </div>
            <!-- Editorial -->
