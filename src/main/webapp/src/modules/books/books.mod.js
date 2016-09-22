@@ -39,7 +39,6 @@
                 }
             }).state('bookEdit', {
                 url: '/{bookId:int}/edit',
-                param: {'bookId': null},
                 parent: 'books',
                 views: {
                     'bookView': {

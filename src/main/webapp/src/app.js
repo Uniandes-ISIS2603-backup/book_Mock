@@ -10,8 +10,7 @@
         'authorModule',
         'editorialModule',
         'reviewModule',
-        'bookModule',
-        'datePickerModule'
+        'bookModule'
     ]);
     app.directive('datePicker', [function () {
         return {
@@ -21,7 +20,22 @@
             },
             restrict: 'E',
             templateUrl: 'src/utils/datepicker.tpl.html',
-            controller: 'datePickerCtrl'
+            controller: ['$scope', function ($scope) {
+                $scope.today = function () {
+                    $scope.value = new Date();
+                };
+
+                $scope.clear = function () {
+                    $scope.value = null;
+                };
+
+                $scope.open = function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
+                    $scope.opened = true;
+                };
+            }]
         };
     }]);
     
