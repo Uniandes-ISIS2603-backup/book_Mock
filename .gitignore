@@ -8,8 +8,7 @@ tmp/
 *.class
 
 # Binaries produced by Maven
-/target/
-/shopping_cart/target/
+target/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -27,7 +26,6 @@ hs_err_pid*
 
 # Bower
 bower_components/
-/src/main/webapp/bower_components/
 
 # Grunt 
 .grunt
