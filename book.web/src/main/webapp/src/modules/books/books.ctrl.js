@@ -2,8 +2,8 @@
     var mod = ng.module("bookModule");
     
 
-    mod.controller("booksCtrl", ['$scope', '$state', '$stateParams', '$http', 'booksContext', 'editorialsContext',
-        function ($scope, $state, $stateParams, $http, booksContext, editorialsContext) {
+    mod.controller("booksCtrl", ['$scope', '$state', '$stateParams', '$http', 'booksContext', 'editorialsContext','$filter',
+        function ($scope, $state, $stateParams, $http, booksContext, editorialsContext,$filter) {
 
             // inicialmente el listado de books está vacio
             $scope.records = {};
@@ -23,7 +23,8 @@
                         .then(function (response) {
                             // $http.get es una promesa
                             // cuando llegue el dato, actualice currentRecord
-                            $scope.currentRecord = response.data;
+                            $scope.currentRecord = response.data;                                           
+                            $scope.currentRecord.publishingdate=$filter('date')($scope.currentRecord.publishingdate, "yyyy-MM-dd");;
                         }, responseError);
 
                 // el controlador no recibió un bookId
@@ -35,7 +36,7 @@
                     name: '' /*Tipo String*/,
                     image: '' /*Tipo String*/,
                     isbn: '' /*Tipo String*/,
-                    publishingdate: 'ss' /*Tipo String to convert to Date*/,
+                    publishingdate: '' /*Tipo String to convert to Date*/,
                     required: true /*Tipo String to convert to Date*/,
                     editorial: {} /*Objeto que representa instancia de Editorial*/
                 };
