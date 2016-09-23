@@ -179,6 +179,11 @@ public class BookLogicMock {
                 // modifica la book
                 book.setId(updatedBook.getId());
                 book.setName(updatedBook.getName());
+                book.setDescription(updatedBook.getDescription());
+                book.setImage(updatedBook.getImage());
+                book.setIsbn(updatedBook.getIsbn());
+                book.setPublishingdate(updatedBook.getPublishingdate());
+                book.setEditorial(updatedBook.getEditorial());
 
                 // retorna la book modificada
                 logger.info("Modificando book " + book);
