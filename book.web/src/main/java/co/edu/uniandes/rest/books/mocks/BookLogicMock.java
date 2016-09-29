@@ -5,6 +5,7 @@ package co.edu.uniandes.rest.books.mocks;
  *
  * @citi Asistente
  */
+import co.edu.uniandes.rest.books.api.IBookLogicMock;
 import co.edu.uniandes.rest.books.dtos.AuthorDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,10 @@ import co.edu.uniandes.rest.books.dtos.EditorialDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 
 import java.util.Date;
+import javax.ejb.Stateless;
 
-public class BookLogicMock {
+@Stateless
+public class BookLogicMock implements IBookLogicMock {
 
     // objeto para presentar logs de las operaciones
     private final static Logger logger = Logger.getLogger(BookLogicMock.class.getName());
@@ -28,10 +31,13 @@ public class BookLogicMock {
     private static ArrayList<BookDetailDTO> books;
     private static BookLogicMock instance = null;
 
+
+    
+
     /**
      * Constructor. Crea los datos de ejemplo.
      */
-    private BookLogicMock() {
+    public BookLogicMock() {
 
         // listado de authores
         Date date = new Date();
@@ -53,20 +59,15 @@ public class BookLogicMock {
         logger.info(
                 "books" + books);
     }
-
-    public static BookLogicMock getInstance() {
-        if (instance == null) {
-            instance = new BookLogicMock();
-        }
-        return instance;
-    }
-
+    
+    
     /**
      * Obtiene el listado de personas.
      *
      * @return lista de books
      * @throws BookLogicException cuando no existe la lista en memoria
      */
+    @Override
     public List<BookDTO> getBooks() throws BookLogicException {
         if (books == null) {
             logger.severe("Error interno: lista de books no existe.");
@@ -89,6 +90,7 @@ public class BookLogicMock {
      * @return book encontrada
      * @throws BookLogicException cuando la book no existe
      */
+    @Override
     public BookDetailDTO getBook(Long id) throws BookLogicException {
         logger.info("getbook con id " + id);
 
@@ -113,6 +115,7 @@ public class BookLogicMock {
      * suministrado
      * @return book agregada
      */
+    @Override
     public BookDTO createBook(BookDTO newBook) throws BookLogicException {
         logger.info("recibiendo solicitud de agregar book " + newBook);
 
@@ -169,6 +172,7 @@ public class BookLogicMock {
      * @throws BookLogicException cuando no existe una book con el id
      * suministrado
      */
+    @Override
     public BookDTO updateBook(Long id, BookDTO updatedBook) throws BookLogicException {
         logger.info("recibiendo solictud de modificar book " + updatedBook);
 
@@ -203,6 +207,7 @@ public class BookLogicMock {
      * @throws BookLogicException cuando no existe una book con el id
      * suministrado
      */
+    @Override
     public void deleteBook(Long id) throws BookLogicException {
         logger.info("recibiendo solictud de eliminar book con id " + id);
 

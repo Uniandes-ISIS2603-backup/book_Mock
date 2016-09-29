@@ -204,7 +204,7 @@ public class AuthorLogicMock {
         logger.info("recibiendo solictud de modificar los autores del libro " + id + "con los autores [" );
         for (int i= 0; i < updatedAuthors.size(); i++)
             logger.info(updatedAuthors.get(i).toString()+ ",");
-        BookLogicMock blm = BookLogicMock.getInstance();
+        BookLogicMock blm = new BookLogicMock();
         BookDetailDTO book = blm.getBook(id);
         book.setAuthors(updatedAuthors);
         logger.info("se actualizaron los autores del libro " + id + "con los autores " + book.getAuthors().toString());
@@ -223,7 +223,7 @@ public class AuthorLogicMock {
      */
     public List<AuthorDTO> getBookAuthors(Long id) throws BookLogicException {
         logger.info("recibiendo solictud de modificar los autores del libro " + id);
-        BookLogicMock blm = BookLogicMock.getInstance();
+        BookLogicMock blm = new BookLogicMock();
         BookDetailDTO book = blm.getBook(id);
        
         return book.getAuthors();

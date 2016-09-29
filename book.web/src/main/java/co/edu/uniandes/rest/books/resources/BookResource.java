@@ -5,12 +5,14 @@
  */
 package co.edu.uniandes.rest.books.resources;
 
+import co.edu.uniandes.rest.books.api.IBookLogicMock;
 import co.edu.uniandes.rest.books.dtos.BookDTO;
 import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import co.edu.uniandes.rest.books.mocks.BookLogicMock;
 
 import java.util.List;
+import javax.inject.Inject;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -34,7 +36,7 @@ import javax.ws.rs.Produces;
 @Produces("application/json")
 public class BookResource {
 
-    BookLogicMock bookLogic = BookLogicMock.getInstance();
+     @Inject private IBookLogicMock bookLogic;
 
     /**
      * Obtiene el listado de books.
