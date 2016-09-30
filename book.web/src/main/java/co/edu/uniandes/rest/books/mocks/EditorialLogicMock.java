@@ -1,6 +1,7 @@
 package co.edu.uniandes.rest.books.mocks;
 
 
+import co.edu.uniandes.rest.books.api.IEditorialLogicMock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,9 +10,10 @@ import java.util.logging.Logger;
 
 import co.edu.uniandes.rest.books.dtos.EditorialDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
+import javax.ejb.Stateless;
 
-
-public class EditorialLogicMock {
+@Stateless
+public class EditorialLogicMock implements IEditorialLogicMock {
 
     // objeto para presentar logs de las operaciones
     private final static Logger logger = Logger.getLogger(EditorialLogicMock.class.getName());
@@ -44,6 +46,7 @@ public class EditorialLogicMock {
      * @return lista de editoriales
      * @throws BookLogicException cuando no existe la lista en memoria
      */
+    @Override
     public List<EditorialDTO> getEditorials() throws BookLogicException {
         if (editorials == null) {
             logger.severe("Error interno: lista de Editorial no existe.");
@@ -61,6 +64,7 @@ public class EditorialLogicMock {
      * @return editorial encontrada
      * @throws BookLogicException cuando el editorial no existe
      */
+    @Override
     public EditorialDTO getEditorial(Long id) throws BookLogicException {
         logger.info("recibiendo solicitud de editorial con id " + id);
 
@@ -85,6 +89,7 @@ public class EditorialLogicMock {
      * suministrado
      * @return editorial agregada
      */
+    @Override
     public EditorialDTO createEditorial(EditorialDTO newEditorial) throws BookLogicException {
         logger.info("recibiendo solicitud de agregar editorial " + newEditorial);
 
@@ -141,6 +146,7 @@ public class EditorialLogicMock {
      * @throws BookLogicException cuando no existe una editorial con el id
      * suministrado
      */
+    @Override
     public EditorialDTO updateEditorial(Long id, EditorialDTO updatedEditorial) throws BookLogicException {
         logger.info("recibiendo solictud de modificar editorial " + updatedEditorial);
 
@@ -170,6 +176,7 @@ public class EditorialLogicMock {
      * @throws BookLogicException cuando no existe una editorial con el id
      * suministrado
      */
+    @Override
     public void deleteEditorial(Long id) throws BookLogicException {
         logger.info("recibiendo solictud de eliminar editorial con id " + id);
 

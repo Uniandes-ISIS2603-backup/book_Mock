@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.rest.books.mocks;
 
+import co.edu.uniandes.rest.books.api.IReviewLogicMock;
 import co.edu.uniandes.rest.books.dtos.ReviewDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 
@@ -13,14 +14,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author rcasalla
  */
 
-
-public class ReviewLogicMock {
+@Stateless
+public class ReviewLogicMock implements IReviewLogicMock{
 
     // objeto para presentar logs de las operaciones
     private final static Logger logger = Logger.getLogger(ReviewLogicMock.class.getName());
@@ -57,6 +59,7 @@ public class ReviewLogicMock {
      * @return lista de reviews
      * @throws BookLogicException cuando no existe la lista en memoria
      */
+    @Override
     public List<ReviewDTO> getReviews(Long idBook) throws BookLogicException {
         if (reviews == null) {
             logger.severe("Error interno: lista de reviews no existe.");
@@ -74,6 +77,7 @@ public class ReviewLogicMock {
      * @return getReview encontrada
      * @throws BookLogicException cuando la getReview no existe
      */
+    @Override
     public ReviewDTO getReview(Long idBook, Long id) throws BookLogicException {
         logger.info("recibiendo solicitud de getReview con id " + id);
 
@@ -98,6 +102,7 @@ public class ReviewLogicMock {
      * suministrado
      * @return getReview agregada
      */
+    @Override
     public ReviewDTO createReview(Long idBook, ReviewDTO newReview) throws BookLogicException {
         logger.info("recibiendo solicitud de agregar getReview " + newReview);
 
@@ -154,6 +159,7 @@ public class ReviewLogicMock {
      * @throws BookLogicException cuando no existe una getReview con el id
      * suministrado
      */
+    @Override
     public ReviewDTO updateReview(Long idBook, Long id, ReviewDTO updatedReview) throws BookLogicException {
         logger.info("recibiendo solictud de modificar getReview " + updatedReview);
 
@@ -183,6 +189,7 @@ public class ReviewLogicMock {
      * @throws BookLogicException cuando no existe una getReview con el id
      * suministrado
      */
+    @Override
     public void deleteReview(Long idBook, Long id) throws BookLogicException {
         logger.info("recibiendo solictud de eliminar getReview con id " + id);
 

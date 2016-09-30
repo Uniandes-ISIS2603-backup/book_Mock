@@ -1,10 +1,12 @@
 package co.edu.uniandes.rest.books.resources;
 
+import co.edu.uniandes.rest.books.api.IAuthorLogicMock;
 import co.edu.uniandes.rest.books.dtos.AuthorDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import co.edu.uniandes.rest.books.mocks.AuthorLogicMock;
 
 import java.util.List;
+import javax.inject.Inject;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -28,7 +30,7 @@ public class BookAuthorsResource {
 
   
     
-    AuthorLogicMock authorLogic = new AuthorLogicMock();
+    @Inject private IAuthorLogicMock authorLogic;
 
     /**
      * Obtiene el listado de authores.

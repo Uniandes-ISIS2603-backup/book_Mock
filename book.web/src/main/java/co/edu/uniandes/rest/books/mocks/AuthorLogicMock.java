@@ -1,5 +1,7 @@
 package co.edu.uniandes.rest.books.mocks;
 
+import co.edu.uniandes.rest.books.api.IAuthorLogicMock;
+import co.edu.uniandes.rest.books.api.IBookLogicMock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,9 +15,13 @@ import co.edu.uniandes.rest.books.dtos.AuthorDTO;
 import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import java.util.Date;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 
-public class AuthorLogicMock {
+@Stateless
+public class AuthorLogicMock implements IAuthorLogicMock{
 
+    @Inject private IBookLogicMock bookLogic;
     // objeto para presentar logs de las operaciones
     private final static Logger logger = Logger.getLogger(AuthorLogicMock.class.getName());
 
@@ -46,6 +52,7 @@ public class AuthorLogicMock {
      * @return lista de authores
      * @throws BookLogicException cuando no existe la lista en memoria
      */
+    @Override
     public List<AuthorDTO> getAuthors() throws BookLogicException {
         if (authors == null) {
             logger.severe("Error interno: lista de Author no existe.");
@@ -63,6 +70,7 @@ public class AuthorLogicMock {
      * @return author encontrada
      * @throws BookLogicException cuando el author no existe
      */
+    @Override
     public AuthorDTO getAuthor(Long id) throws BookLogicException {
         logger.info("recibiendo solicitud de author con id " + id);
 
@@ -87,6 +95,7 @@ public class AuthorLogicMock {
      * suministrado
      * @return author agregada
      */
+    @Override
     public AuthorDTO createAuthor(AuthorDTO newAuthor) throws BookLogicException {
         logger.info("recibiendo solicitud de agregar author " + newAuthor);
 
@@ -143,6 +152,7 @@ public class AuthorLogicMock {
      * @throws BookLogicException cuando no existe una author con el id
      * suministrado
      */
+    @Override
     public AuthorDTO updateAuthor(Long id, AuthorDTO updatedAuthor) throws BookLogicException {
         logger.info("recibiendo solictud de modificar author " + updatedAuthor);
 
@@ -172,6 +182,7 @@ public class AuthorLogicMock {
      * @throws BookLogicException cuando no existe una author con el id
      * suministrado
      */
+    @Override
     public void deleteAuthor(Long id) throws BookLogicException {
         logger.info("recibiendo solictud de eliminar author con id " + id);
 
@@ -200,12 +211,12 @@ public class AuthorLogicMock {
      * @throws BookLogicException cuando no existe una author con el id
      * suministrado
      */
+    @Override
     public List<AuthorDTO> updateBookAuthors(Long id, List<AuthorDTO> updatedAuthors) throws BookLogicException {
         logger.info("recibiendo solictud de modificar los autores del libro " + id + "con los autores [" );
         for (int i= 0; i < updatedAuthors.size(); i++)
             logger.info(updatedAuthors.get(i).toString()+ ",");
-        BookLogicMock blm = new BookLogicMock();
-        BookDetailDTO book = blm.getBook(id);
+        BookDetailDTO book = bookLogic.getBook(id);
         book.setAuthors(updatedAuthors);
         logger.info("se actualizaron los autores del libro " + id + "con los autores " + book.getAuthors().toString());
         return updatedAuthors;
@@ -221,10 +232,10 @@ public class AuthorLogicMock {
      * @throws BookLogicException cuando no existe una author con el id
      * suministrado
      */
+    @Override
     public List<AuthorDTO> getBookAuthors(Long id) throws BookLogicException {
         logger.info("recibiendo solictud de modificar los autores del libro " + id);
-        BookLogicMock blm = new BookLogicMock();
-        BookDetailDTO book = blm.getBook(id);
+        BookDetailDTO book = bookLogic.getBook(id);
        
         return book.getAuthors();
 

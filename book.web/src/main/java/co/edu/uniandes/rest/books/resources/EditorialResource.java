@@ -5,11 +5,13 @@
  */
 package co.edu.uniandes.rest.books.resources;
 
+import co.edu.uniandes.rest.books.api.IEditorialLogicMock;
 import co.edu.uniandes.rest.books.dtos.EditorialDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import co.edu.uniandes.rest.books.mocks.EditorialLogicMock;
 
 import java.util.List;
+import javax.inject.Inject;
 
 
 import javax.ws.rs.DELETE;
@@ -36,7 +38,7 @@ import javax.ws.rs.Produces;
 public class EditorialResource {
 
 	
-	EditorialLogicMock editorialLogic = new EditorialLogicMock();
+	@Inject private IEditorialLogicMock editorialLogic;
 
 	/**
 	 * Obtiene el listado de editoriales. 

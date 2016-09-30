@@ -5,11 +5,13 @@
  */
 package co.edu.uniandes.rest.books.resources;
 
+import co.edu.uniandes.rest.books.api.IReviewLogicMock;
 import co.edu.uniandes.rest.books.dtos.ReviewDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import co.edu.uniandes.rest.books.mocks.ReviewLogicMock;
 
 import java.util.List;
+import javax.inject.Inject;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -33,7 +35,7 @@ import javax.ws.rs.Produces;
 @Produces("application/json")
 public class ReviewResource {
 
-    ReviewLogicMock reviewLogic = new ReviewLogicMock();
+    @Inject private IReviewLogicMock reviewLogic;
 
     /**
      * Obtiene el listado de reviews.
