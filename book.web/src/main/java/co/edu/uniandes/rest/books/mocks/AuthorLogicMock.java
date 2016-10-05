@@ -7,10 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import co.edu.uniandes.rest.books.dtos.AuthorDTO;
 import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
@@ -38,6 +34,7 @@ public class AuthorLogicMock implements IAuthorLogicMock{
             authors = new ArrayList<>();
             authors.add(new AuthorDTO(1L, "Gabriel Garcia Marquez", date));
             authors.add(new AuthorDTO(2L, "Alvaro Mutis", date));
+            authors.add(new AuthorDTO(3L, "Fernando Perez", date));
         }
 
         // indica que se muestren todos los mensajes
@@ -47,7 +44,7 @@ public class AuthorLogicMock implements IAuthorLogicMock{
     }
 
     /**
-     * Obtiene el listado de personas.
+     * Obtiene el listado de authors.
      *
      * @return lista de authores
      * @throws BookLogicException cuando no existe la lista en memoria

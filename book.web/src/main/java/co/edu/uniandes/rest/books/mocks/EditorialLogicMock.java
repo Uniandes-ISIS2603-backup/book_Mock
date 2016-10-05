@@ -41,7 +41,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
     }
 
     /**
-     * Obtiene el listado de personas.
+     * Obtiene el listado de editorials.
      *
      * @return lista de editoriales
      * @throws BookLogicException cuando no existe la lista en memoria

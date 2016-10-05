@@ -31,9 +31,6 @@ public class BookLogicMock implements IBookLogicMock {
     private static ArrayList<BookDetailDTO> books;
     private static BookLogicMock instance = null;
 
-
-    
-
     /**
      * Constructor. Crea los datos de ejemplo.
      */
@@ -59,10 +56,9 @@ public class BookLogicMock implements IBookLogicMock {
         logger.info(
                 "books" + books);
     }
-    
-    
+
     /**
-     * Obtiene el listado de personas.
+     * Obtiene el listado de books.
      *
      * @return lista de books
      * @throws BookLogicException cuando no existe la lista en memoria

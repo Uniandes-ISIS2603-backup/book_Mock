@@ -9,15 +9,14 @@
             </ui-select-choices>
         </ui-select>
 
+    </div>
+    <hr>
+    <hr>
+    <div class="form-group col-md-6">
 
+        <button type="button" class="btn btn-default btn-sm" ui-sref='bookAuthorsList'><span class="glyphicon glyphicon-circle-arrow-left"></span>Cancel</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click='ctrl.updateBookAuthors(ctrl.selectedAuthors)'><span class="glyphicon glyphicon-saved"></span>Save</button>   
 
-        <hr/>
-
-        <div class="form-group col-md-6">
-            <button type="button" ui-sref='bookAuthorsList'>Cancel</button>
-            <button type="button" ng-click='ctrl.updateBookAuthors(ctrl.selectedAuthors)' >Save</button>   
-        </div>
-        
     </div>
 
 </div>

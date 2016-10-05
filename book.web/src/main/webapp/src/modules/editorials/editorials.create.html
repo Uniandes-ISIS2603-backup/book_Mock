@@ -7,8 +7,6 @@
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="ctrl.closeAlert($index)" dismiss-on-timeout="5000">{{alert.msg}} </alert>
     <form novalidate name="form" id="editorial-form" role="form" ng-submit="form.$valid && ctrl.saveRecord(currentRecord.id)">
         
-        
-   
         <fieldset>
             <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
             <div class="form-group col-md-6" ng-class="{'has-success': form.name.$valid && form.name.$dirty, 'has-error': form.name.$invalid && (form.name.$dirty || form.$submitted)}" >
@@ -17,8 +15,9 @@
                     <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-init="currentRecord.name" required />
                 </div>
             </div>
-            <button type="button" ui-sref='editorialsList'>Cancel</button>
-            <button type="submit" >Save</button>    
+            <button type="button" class="btn btn-default btn-sm" ui-sref='editorialsList'><span class="glyphicon glyphicon-circle-arrow-left"></span>Cancel</button>
+            <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-saved"></span>Save</button>
+            
         </fieldset>
     </form>
 </div>

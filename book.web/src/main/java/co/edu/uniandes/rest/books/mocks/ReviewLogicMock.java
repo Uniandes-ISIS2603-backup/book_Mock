@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.rest.books.mocks;
 
+import co.edu.uniandes.rest.books.api.IBookLogicMock;
 import co.edu.uniandes.rest.books.api.IReviewLogicMock;
+import co.edu.uniandes.rest.books.dtos.BookDTO;
+import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.dtos.ReviewDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 
@@ -15,34 +18,34 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
  * @author rcasalla
  */
-
 @Stateless
-public class ReviewLogicMock implements IReviewLogicMock{
+public class ReviewLogicMock implements IReviewLogicMock {
 
     // objeto para presentar logs de las operaciones
     private final static Logger logger = Logger.getLogger(ReviewLogicMock.class.getName());
 
     // listado de reviews
     private static ArrayList<ReviewDTO> reviews;
+    
+    @Inject
+    private IBookLogicMock bookLogic;
 
     /**
      * Constructor. Crea los datos de ejemplo.
      */
     public ReviewLogicMock() {
-
-       
-       
-      
+        
         if (reviews == null) {
             reviews = new ArrayList<>();
-            reviews.add(new ReviewDTO(1L, " ", "El Tiempo", "Maravillosa descripción de lo ilógico" ));
+            reviews.add(new ReviewDTO(1L, " ", "El Tiempo", "Maravillosa descripción de lo ilógico"));
             reviews.add(new ReviewDTO(2L, " ", "El Espectador", "Fantástica obra de la realidad imposible"));
-      
+            
         }
 
         // indica que se muestren todos los mensajes
@@ -54,7 +57,7 @@ public class ReviewLogicMock implements IReviewLogicMock{
     }
 
     /**
-     * Obtiene el listado de personas.
+     * Obtiene el listado de reviews.
      *
      * @return lista de reviews
      * @throws BookLogicException cuando no existe la lista en memoria
@@ -65,7 +68,7 @@ public class ReviewLogicMock implements IReviewLogicMock{
             logger.severe("Error interno: lista de reviews no existe.");
             throw new BookLogicException("Error interno: lista de reviews no existe.");
         }
-
+        
         logger.info("retornando todas las reviews");
         return reviews;
     }
@@ -104,7 +107,8 @@ public class ReviewLogicMock implements IReviewLogicMock{
      */
     @Override
     public ReviewDTO createReview(Long idBook, ReviewDTO newReview) throws BookLogicException {
-        logger.info("recibiendo solicitud de agregar getReview " + newReview);
+        logger.info("recibiendo solicitud de agregar createReview " + newReview);
+        logger.info("recibiendo solicitud de agregar Review to Book " + idBook);
 
         // la nueva getReview tiene id ?
         if (newReview.getId() != null) {
@@ -119,7 +123,7 @@ public class ReviewLogicMock implements IReviewLogicMock{
                     logger.severe("Ya existe una getReview con ese nombre");
                     throw new BookLogicException("Ya existe una getReview con ese nombre");
                 }
-
+                
             }
 
             // la nueva getReview no tiene id ? 
@@ -131,7 +135,7 @@ public class ReviewLogicMock implements IReviewLogicMock{
                     logger.severe("Ya existe una getReview con ese nombre");
                     throw new BookLogicException("Ya existe una getReview con ese nombre");
                 }
-
+                
             }
             // genera un id para la getReview
             logger.info("Generando id para la nueva getReview");
@@ -146,7 +150,7 @@ public class ReviewLogicMock implements IReviewLogicMock{
 
         // agrega la getReview
         logger.info("agregando getReview " + newReview);
-        reviews.add(newReview);
+        reviews.add(newReview);        
         return newReview;
     }
 

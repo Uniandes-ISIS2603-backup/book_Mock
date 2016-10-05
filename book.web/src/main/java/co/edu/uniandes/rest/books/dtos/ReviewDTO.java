@@ -22,8 +22,8 @@ public class ReviewDTO {
     /**
      * Constructor con parámetros.
      *
-     * @param id identificador de la book
-     * @param name nombre de la book
+     * @param id identificador de la review
+     * @param name nombre de la review
      */
     public ReviewDTO(Long id, String name, String source, String description) {
         super();

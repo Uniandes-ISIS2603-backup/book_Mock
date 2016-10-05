@@ -12,18 +12,19 @@ import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 @Provider
 public class BookLogicExceptionMapper implements ExceptionMapper<BookLogicException> {
 
-	/**
-	 * Generador de una respuesta a partir de una excepción
-	 * @param ex excecpión a convertir a una respuesta REST
-	 */
-	@Override
-	public Response toResponse(BookLogicException ex) {
-		// retorna una respuesta
-		return Response
-				.status(Response.Status.NOT_FOUND)	// estado HTTP 404
-				.entity(ex.getMessage())			// mensaje adicional
-				.type("text/plain")
-				.build();
-	}
-	
+    /**
+     * Generador de una respuesta a partir de una excepción
+     *
+     * @param ex excecpión a convertir a una respuesta REST
+     */
+    @Override
+    public Response toResponse(BookLogicException ex) {
+        // retorna una respuesta
+        return Response
+                .status(Response.Status.NOT_FOUND) // estado HTTP 404
+                .entity(ex.getMessage()) // mensaje adicional
+                .type("text/plain")
+                .build();
+    }
+
 }

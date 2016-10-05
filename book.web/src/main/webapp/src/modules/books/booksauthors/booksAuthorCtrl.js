@@ -19,7 +19,7 @@
                         }, responseError);
                 // el controlador no recibió un bookId
             } else {
-                showError(" El ibro no existe");
+                showError(" El libro no existe");
                 $scope.bookAuthors = {};
                 $scope.selectedAuthors = []; // Contendra la lista de authores del libro en $stateParams.bookId
             }
@@ -43,7 +43,7 @@
 
             this.updateBookAuthors = function (selectedAuthors) {
                 $log.warn('Put ' + booksContext + "/" + id + "/authors");
-                 var log = [];
+                var log = [];
                 $log.warn(angular.forEach(Array.from(selectedAuthors), function (v, k) {
                     this.push(k + ': ' + v);
                 }, log));
@@ -71,7 +71,7 @@
                 $scope.searchEnabled = false;
             }
 
-           
+
             // -----------------------------------------------------------------
             // Funciones para manejra los mensajes en la aplicación
 

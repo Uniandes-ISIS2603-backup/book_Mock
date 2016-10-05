@@ -27,8 +27,8 @@ public class AuthorDTO {
     /**
      * Constructor con parámetros.
      *
-     * @param id identificador de la book
-     * @param name nombre de la book
+     * @param id identificador de la author
+     * @param name nombre de la author
      */
     public AuthorDTO(Long id, String name, Date birthDate) {
         super();

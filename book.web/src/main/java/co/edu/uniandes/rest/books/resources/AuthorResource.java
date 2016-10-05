@@ -26,7 +26,7 @@ import javax.ws.rs.Produces;
  * Clase que implementa el recurso REST correspondiente a "authors".
  *
  * Note que la aplicación (definida en RestConfig.java) define la ruta "/api" y
- * este recurso tiene la ruta "authors". Al ejecutar la aplicación, el recurse
+ * este recurso tiene la ruta "authors". Al ejecutar la aplicación, el recurso
  * será accesibe a través de la ruta "/api/authors"
  *
  *

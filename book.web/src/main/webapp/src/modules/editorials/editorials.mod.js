@@ -1,7 +1,7 @@
 (function (ng) {
     
-    var mod = angular.module('editorialModule',[]
-    );
+    var mod = angular.module('editorialModule',[]);
+    
     mod.constant("editorialsContext", "api/editorials");
     mod.config(['$stateProvider', '$urlRouterProvider', function (sp, $urlRouterProvider) {
             var basePath = 'src/modules/editorials/';
@@ -18,6 +18,17 @@
                 }
             }).state('editorialCreate', {
                 url: '/editorials/create',
+                views: {
+                    'mainView': {
+                        controller: 'editorialsCtrl',
+                        controllerAs: 'ctrl',
+                        templateUrl: basePath + 'editorials.create.html'
+                    }
+                }
+
+            }).state('editorialEdit', {
+                url: '/{editorialId:int}/edit',
+                param: { 'editorialId' : null},
                 views: {
                     'mainView': {
                         controller: 'editorialsCtrl',

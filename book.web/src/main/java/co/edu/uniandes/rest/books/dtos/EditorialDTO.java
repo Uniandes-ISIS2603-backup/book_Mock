@@ -21,8 +21,8 @@ public class EditorialDTO {
 
     /**
      * Constructor con parámetros.
-     * @param id identificador de la book
-     * @param name nombre de la book
+     * @param id identificador de la editorial
+     * @param name nombre de la editorial
      */
     public EditorialDTO(Long id, String name) {
 		super();
