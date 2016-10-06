@@ -27,8 +27,9 @@
                 }
 
             }).state('authorEdit', {
-               url: '/authors/{authorId:int}/edit',
+               url: '/{authorId:int}/edit',
                //parent: 'authorsList',
+               param: {'authorId': null},
                 views: {
                     'mainView': {
                         controller: 'authorsCtrl',
