@@ -66,6 +66,14 @@
                 ;
             };
 
+            this.deleteRecord = function (id) {
+
+                return $http.delete(context + "/" + id)
+                        .then(function () {
+                            $state.reload('authorsList');
+                        }, responseError);
+            };
+
             // -----------------------------------------------------------------
             // Funciones para manejar las fechas
 

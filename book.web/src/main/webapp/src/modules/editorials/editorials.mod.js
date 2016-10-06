@@ -1,13 +1,14 @@
 (function (ng) {
-    
-    var mod = angular.module('editorialModule',[]);
-    
+
+    var mod = angular.module('editorialModule', []);
+
     mod.constant("editorialsContext", "api/editorials");
-    mod.config(['$stateProvider', '$urlRouterProvider', function (sp, $urlRouterProvider) {
+    
+    mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             var basePath = 'src/modules/editorials/';
             $urlRouterProvider.otherwise("/editorialsList");
-     
-            sp.state('editorialsList', {
+
+            $stateProvider.state('editorialsList', {
                 url: '/editorials',
                 views: {
                     'mainView': {
@@ -28,7 +29,8 @@
 
             }).state('editorialEdit', {
                 url: '/{editorialId:int}/edit',
-                param: { 'editorialId' : null},
+               // param: {'editorialId': null},
+                parent: 'editorialsList',
                 views: {
                     'mainView': {
                         controller: 'editorialsCtrl',

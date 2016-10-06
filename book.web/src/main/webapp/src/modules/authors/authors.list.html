@@ -1,5 +1,5 @@
 <div class="container-fluid" >
-   
+    <button class="btn btn-default" ui-sref="authorCreate">Create new Author</button>
     <table class="table table-striped" class="col-md-4">
         <thead>
             <tr>
@@ -11,11 +11,11 @@
         <tbody>
             <tr ng-repeat="record in records">
                 <td id="{{$index}}-name">{{record.name}}</td>
-                 <td id="{{$index}}-birthDate">{{record.birthDate}}</td>
+                <td id="{{$index}}-birthDate">{{record.birthDate}}</td>
 
                 <td>
                     <button id="{{$index}}-edit-btn" class="btn btn-default btn-sm" ui-sref="authorEdit({authorId: record.id})"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                    <button id="{{$index}}-delete-btn" class="btn btn-default btn-sm" ng-click="ctrl.deleteRecord(record)"><span class="glyphicon glyphicon-minus"></span> Remove</button>
+                    <button id="{{$index}}-delete-btn" class="btn btn-default btn-sm" ng-click="ctrl.deleteRecord(record.id)"><span class="glyphicon glyphicon-minus"></span> Remove</button>
 
                 </td>
             </tr>

@@ -26,6 +26,16 @@
                     }
                 }
 
+            }).state('authorEdit', {
+                url: '/{authorId:int}/edit',
+                views: {
+                    'mainView': {
+                        controller: 'authorsCtrl',
+                        controllerAs: 'ctrl',
+                        templateUrl: basePath + 'authors.create.html'
+                    }
+                }
+
             });
         }]);
 })(window.angular);
