@@ -39,11 +39,15 @@
 
 
             this.saveRecord = function (id) {
+                
+                console.log("SaveRecord en authors "+id);
                 currentRecord = $scope.currentRecord;
 
                 // si el id es null, es un registro nuevo, entonces lo crea
                 if (id == null) {
 
+                console.log("SaveRecord en authors POST");
+                
                     // ejecuta POST en el recurso REST
                     return $http.post(context, currentRecord)
                             .then(function () {
@@ -55,6 +59,7 @@
                     // si el id no es null, es un registro existente entonces lo actualiza
                 } else {
 
+                console.log("SaveRecord en authors PUT");
                     // ejecuta PUT en el recurso REST
                     return $http.put(context + "/" + currentRecord.id, currentRecord)
                             .then(function () {

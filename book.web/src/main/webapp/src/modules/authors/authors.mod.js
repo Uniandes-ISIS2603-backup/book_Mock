@@ -27,7 +27,8 @@
                 }
 
             }).state('authorEdit', {
-                url: '/{authorId:int}/edit',
+               url: '/authors/{authorId:int}/edit',
+               //parent: 'authorsList',
                 views: {
                     'mainView': {
                         controller: 'authorsCtrl',
@@ -35,7 +36,6 @@
                         templateUrl: basePath + 'authors.create.html'
                     }
                 }
-
             });
         }]);
 })(window.angular);

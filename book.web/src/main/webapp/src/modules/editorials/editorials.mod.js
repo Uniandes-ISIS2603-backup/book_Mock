@@ -29,7 +29,6 @@
 
             }).state('editorialEdit', {
                 url: '/{editorialId:int}/edit',
-               // param: {'editorialId': null},
                 parent: 'editorialsList',
                 views: {
                     'mainView': {
