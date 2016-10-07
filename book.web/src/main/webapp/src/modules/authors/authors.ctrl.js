@@ -56,7 +56,6 @@
 
                     // si el id no es null, es un registro existente entonces lo actualiza
                 } else {
-
                     // ejecuta PUT en el recurso REST
                     return $http.put(context + "/" + currentRecord.id, currentRecord)
                             .then(function () {
