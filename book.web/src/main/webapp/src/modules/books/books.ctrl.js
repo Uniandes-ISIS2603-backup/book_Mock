@@ -79,7 +79,7 @@
 
 
             // -----------------------------------------------------------------
-            // Funciones para manejra los mensajes en la aplicación
+            // Funciones para manejar los mensajes en la aplicación
 
 
             //Alertas

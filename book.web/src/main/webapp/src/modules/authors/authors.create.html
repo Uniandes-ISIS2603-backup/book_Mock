@@ -1,13 +1,14 @@
 <div ng-messages="form.$error" multiple>
-    <ng-message when="required">
-        <alert type="warning">Please, Fill the required fields!</alert>
-    </ng-message>
+            <ng-message when="required">
+                <alert type="warning">Please, Fill the required fields!</alert>
+            </ng-message>    <br>
+            <ng-message when="date">
+                <alert type="warning">Not a valid date!</alert>
+            </ng-message> 
 </div>
 <div class="col-md-6 well">
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="ctrl.closeAlert($index)" dismiss-on-timeout="5000">{{alert.msg}} </alert>
     <form novalidate name="form" id="author-form" role="form" ng-submit="form.$valid && ctrl.saveRecord(currentRecord.id)">
-
-
 
         <fieldset>
 
@@ -20,16 +21,13 @@
                 </div>
             </div>
             <!-- Birth Date -->
-
             <div class="form-group col-md-12" ng-class="{'has-success': form.birthDate.$valid && form.birthDate.$dirty, 'has-error': form.birthDate.$invalid && (form.birthDate.$dirty || form.$submitted)}" >
-
                 <label for="BirthDate" class="col-md-2 control-label">Birth Date</label>
                 <div class="col-md-10">
                     <date-picker name="birthdate" model="currentRecord.birthDate"></date-picker>
                 </div>
-
             </div>
-
+            
             <button type="button" class="btn btn-default btn-sm" ui-sref='authorsList'><span class="glyphicon glyphicon-circle-arrow-left"></span>Cancel</button>
             <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-saved"></span>Save</button>    
         </fieldset>
