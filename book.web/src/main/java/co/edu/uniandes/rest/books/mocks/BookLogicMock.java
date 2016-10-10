@@ -39,8 +39,7 @@ public class BookLogicMock implements IBookLogicMock {
         // listado de authores
         Date date = new Date();
 
-        if (books
-                == null) {
+        if (books == null) {
             books = new ArrayList<>();
             books.add(new BookDetailDTO(1L, "Cien años de Soledad", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
             books.add(new BookDetailDTO(2L, "El Coronel no tiene quien le escriba", "123", "imagen", "Wonderful!", date, new EditorialDTO(2L, "Siruela")));

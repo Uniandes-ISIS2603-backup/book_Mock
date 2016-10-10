@@ -11,6 +11,7 @@ import co.edu.uniandes.rest.books.dtos.AuthorDTO;
 import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import java.util.Date;
+import java.util.Iterator;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -135,7 +136,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
         }
 
         // agrega el author
-        logger.info("agregando author " + newAuthor);
+        logger.log(Level.INFO, "agregando author {0}", newAuthor);
         authors.add(newAuthor);
         return newAuthor;
     }
@@ -151,7 +152,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      */
     @Override
     public AuthorDTO updateAuthor(Long id, AuthorDTO updatedAuthor) throws BookLogicException {
-        logger.info("recibiendo solictud de modificar author " + updatedAuthor);
+        logger.log(Level.INFO, "recibiendo solictud de modificar author {0}", updatedAuthor);
 
         // busca el author con el id suministrado
         for (AuthorDTO author : authors) {
@@ -182,14 +183,14 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      */
     @Override
     public void deleteAuthor(Long id) throws BookLogicException {
-        logger.info("recibiendo solictud de eliminar author con id " + id);
+        logger.log(Level.INFO, "recibiendo solictud de eliminar author con id {0}", id);
 
         // busca el author con el id suministrado
         for (AuthorDTO author : authors) {
             if (Objects.equals(author.getId(), id)) {
 
                 // elimina el author
-                logger.info("eliminando author " + author);
+                logger.log(Level.INFO, "eliminando author {0}", author);
                 authors.remove(author);
                 return;
             }
@@ -211,13 +212,13 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      */
     @Override
     public List<AuthorDTO> updateBookAuthors(Long id, List<AuthorDTO> updatedAuthors) throws BookLogicException {
-        logger.info("recibiendo solictud de modificar los autores del libro " + id + "con los autores [");
+        logger.log(Level.INFO, "recibiendo solictud de modificar los autores del libro {0} con los autores [", id);
         for (int i = 0; i < updatedAuthors.size(); i++) {
-            logger.info(updatedAuthors.get(i).toString() + ",");
+            logger.log(Level.INFO, "{0},", updatedAuthors.get(i).toString());
         }
         BookDetailDTO book = bookLogic.getBook(id);
         book.setAuthors(updatedAuthors);
-        logger.info("se actualizaron los autores del libro " + id + "con los autores " + book.getAuthors().toString());
+        logger.log(Level.INFO, "se actualizaron los autores del libro {0} con los autores {1}", new Object[]{id, book.getAuthors().toString()});
         return updatedAuthors;
 
     }
@@ -226,18 +227,22 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      * Actualiza la lista de autores de un book
      *
      * @param id identificador del book
-     * @param authors de authors del libro id
      * @return authors del libro id
      * @throws BookLogicException cuando no existe una author con el id
      * suministrado
      */
     @Override
     public List<AuthorDTO> getBookAuthors(Long id) throws BookLogicException {
-        logger.info("recibiendo solictud de modificar los autores del libro " + id);
+        logger.log(Level.INFO, "recibiendo solictud de mostrar los autores del libro {0}", id);
         BookDetailDTO book = bookLogic.getBook(id);
 
         return book.getAuthors();
 
+    }
+
+    @Override
+    public void deleteBookAuthor(Long bookId, Long authorId) throws BookLogicException {
+       
     }
 
 }

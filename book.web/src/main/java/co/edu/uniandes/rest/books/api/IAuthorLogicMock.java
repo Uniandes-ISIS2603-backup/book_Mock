@@ -20,5 +20,6 @@ public interface IAuthorLogicMock {
     public AuthorDTO updateAuthor(Long id, AuthorDTO updatedAuthor) throws BookLogicException;
     public void deleteAuthor(Long id) throws BookLogicException;
     public List<AuthorDTO> updateBookAuthors(Long id, List<AuthorDTO> updatedAuthors) throws BookLogicException;
+    public void deleteBookAuthor(Long bookId, Long authorId) throws BookLogicException;
     public List<AuthorDTO> getBookAuthors(Long id) throws BookLogicException;
 }

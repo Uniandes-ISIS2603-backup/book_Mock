@@ -29,6 +29,7 @@
             $scope.allAuthors = [];
             // carga todos los authors
             $log.warn(authorsContext);
+
             $http.get(authorsContext).then(function (response) {
                 $scope.records = response.data;
                 var log = [];
@@ -70,6 +71,15 @@
             this.disableSearch = function () {
                 $scope.searchEnabled = false;
             }
+
+
+            this.deleteBookAuthor = function (id) {
+                $log.warn('Delete: One author from book ' + booksContext + "/" + id + "/authors"+ "/" + id);
+                return $http.delete(booksContext + "/" + id + "/authors" + "/" + id)
+                        .then(function () {
+                            $state.reload('bookAuthorsList');
+                        }, responseError);
+            };
 
 
             // -----------------------------------------------------------------

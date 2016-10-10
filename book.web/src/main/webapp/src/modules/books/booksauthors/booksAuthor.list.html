@@ -13,7 +13,7 @@
                 <tr ng-repeat="record in selectedAuthors">
                     <td id="{{$index}}-name">{{record.name}}</td>  
                     <td>
-                        <button id="{{$index}}-delete-btn" class="btn btn-default btn-sm" ng-click="ctrl.deleteBookAuthor(record)"><span class="glyphicon glyphicon-minus"></span>Remove</button>
+                        <button id="{{$index}}-delete-btn" class="btn btn-default btn-sm" ng-click="ctrl.deleteBookAuthor(record.id)"><span class="glyphicon glyphicon-minus"></span>Remove</button>
                     </td>
                 </tr>
             </tbody>

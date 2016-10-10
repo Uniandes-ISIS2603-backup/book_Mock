@@ -18,7 +18,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-
 /**
  * URI: books/{booksId: \\d+}/authors
  *
@@ -27,10 +26,9 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class BookAuthorsResource {
-
-  
     
-    @Inject private IAuthorLogicMock authorLogic;
+    @Inject
+    private IAuthorLogicMock authorLogic;
 
     /**
      * Obtiene el listado de authores.
@@ -42,14 +40,11 @@ public class BookAuthorsResource {
     public List<AuthorDTO> getBookAuthors(@PathParam("booksId") Long booksId) throws BookLogicException {
         return authorLogic.getBookAuthors(booksId);
     }
-
-  
+    
     @PUT
     public List<AuthorDTO> updateBookAuthors(@PathParam("booksId") Long booksId, List<AuthorDTO> authors) throws BookLogicException {
         return authorLogic.updateBookAuthors(booksId, authors);
     }
-
-    
 
     /**
      * Elimina los datos de un author
@@ -60,8 +55,8 @@ public class BookAuthorsResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteBookAuthor(@PathParam("id") Long id) throws BookLogicException {
-        authorLogic.deleteAuthor(id);
+    public void deleteBookAuthor(@PathParam("booksId") Long booksId, @PathParam("id") Long id) throws BookLogicException {
+        authorLogic.deleteBookAuthor(booksId, id);
     }
-
+    
 }

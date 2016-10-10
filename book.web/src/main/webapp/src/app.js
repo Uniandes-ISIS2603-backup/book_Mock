@@ -13,32 +13,32 @@
         'bookModule'
     ]);
     app.directive('datePicker', [function () {
-        return {
-            scope: {
-                model: '=',
-                name: '@'
-            },
-            restrict: 'E',
-            templateUrl: 'src/utils/datepicker.tpl.html',
-            controller: ['$scope', function ($scope) {
-                $scope.today = function () {
-                    $scope.value = new Date();
-                };
+            return {
+                scope: {
+                    model: '=',
+                    name: '@'
+                },
+                restrict: 'E',
+                templateUrl: 'src/utils/datepicker.tpl.html',
+                controller: ['$scope', function ($scope) {
+                        $scope.today = function () {
+                            $scope.value = new Date();
+                        };
 
-                $scope.clear = function () {
-                    $scope.value = null;
-                };
+                        $scope.clear = function () {
+                            $scope.value = null;
+                        };
 
-                $scope.open = function ($event) {
-                    $event.preventDefault();
-                    $event.stopPropagation();
+                        $scope.open = function ($event) {
+                            $event.preventDefault();
+                            $event.stopPropagation();
 
-                    $scope.opened = true;
-                };
-            }]
-        };
-    }]);
-    
+                            $scope.opened = true;
+                        };
+                    }]
+            };
+        }]);
+
 
 })(window.angular);
 
