@@ -28,32 +28,38 @@ public class BookLogicMock implements IBookLogicMock {
     private final static Logger logger = Logger.getLogger(BookLogicMock.class.getName());
 
     // listado de books
-    private static ArrayList<BookDetailDTO> books;
+    private static ArrayList<BookDetailDTO> BOOKS;
     private static BookLogicMock instance = null;
 
     /**
      * Constructor. Crea los datos de ejemplo.
      */
-    public BookLogicMock() {
+    protected BookLogicMock() {
+        getInstance();
+    }
 
-        // listado de authores
+    private synchronized static void createInstance() {
         Date date = new Date();
 
-        if (books == null) {
-            books = new ArrayList<>();
-            books.add(new BookDetailDTO(1L, "Cien años de Soledad", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
-            books.add(new BookDetailDTO(2L, "El Coronel no tiene quien le escriba", "123", "imagen", "Wonderful!", date, new EditorialDTO(2L, "Siruela")));
-            books.add(new BookDetailDTO(3L, "Ojos de Perro Azul", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
+        if (BOOKS == null) {
+            BOOKS = new ArrayList<>();
+            BOOKS.add(new BookDetailDTO(1L, "Cien años de Soledad", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
+            BOOKS.add(new BookDetailDTO(2L, "El Coronel no tiene quien le escriba", "123", "imagen", "Wonderful!", date, new EditorialDTO(2L, "Siruela")));
+            BOOKS.add(new BookDetailDTO(3L, "Ojos de Perro Azul", "123", "imagen", "Wonderful!", date, new EditorialDTO(1L, "Plaza y Janes")));
         }
-
         // indica que se muestren todos los mensajes
         logger.setLevel(Level.INFO);
 
         // muestra información 
-        logger.info(
-                "Inicializa la lista de books");
-        logger.info(
-                "books" + books);
+        logger.info("Inicializa la lista de BOOKS");
+        logger.info("BOOKS" + BOOKS);
+    }
+
+    public static ArrayList<BookDetailDTO> getInstance() {
+        if (BOOKS == null) {
+            createInstance();
+        }
+        return BOOKS;
     }
 
     /**
@@ -64,7 +70,7 @@ public class BookLogicMock implements IBookLogicMock {
      */
     @Override
     public List<BookDTO> getBooks() throws BookLogicException {
-        if (books == null) {
+        if (BOOKS == null) {
             logger.severe("Error interno: lista de books no existe.");
             throw new BookLogicException("Error interno: lista de books no existe.");
         }
@@ -72,8 +78,8 @@ public class BookLogicMock implements IBookLogicMock {
         logger.info("retornando todas las books");
 
         ArrayList<BookDTO> booksMinimum = new ArrayList<>();
-        for (int i = 0; i < books.size(); i++) {
-            booksMinimum.add(books.get(i));
+        for (int i = 0; i < BOOKS.size(); i++) {
+            booksMinimum.add(BOOKS.get(i));
         }
         return booksMinimum;
     }
@@ -90,7 +96,7 @@ public class BookLogicMock implements IBookLogicMock {
         logger.info("getbook con id " + id);
 
         // busca la book con el id suministrado
-        for (BookDetailDTO book : books) {
+        for (BookDetailDTO book : BOOKS) {
             if (Objects.equals(book.getId(), id)) {
                 logger.info("getbook " + book);
                 return book;
@@ -117,7 +123,7 @@ public class BookLogicMock implements IBookLogicMock {
         // la nueva book tiene id ?
         if (newBook.getId() != null) {
             // busca la book con el id suministrado
-            for (BookDTO book : books) {
+            for (BookDTO book : BOOKS) {
                 // si existe una book con ese id
                 if (Objects.equals(book.getId(), newBook.getId())) {
                     logger.severe("Ya existe una book con ese id");
@@ -132,7 +138,7 @@ public class BookLogicMock implements IBookLogicMock {
 
             // la nueva book no tiene id ? 
         } else {
-            for (BookDTO book : books) {
+            for (BookDTO book : BOOKS) {
                 // si existe una book con ese id
 
                 if (Objects.equals(book.getName(), newBook.getName())) {
@@ -144,7 +150,7 @@ public class BookLogicMock implements IBookLogicMock {
             // genera un id para la book
             logger.info("Generando id para la nueva book");
             long newId = 1;
-            for (BookDTO book : books) {
+            for (BookDTO book : BOOKS) {
                 if (newId <= book.getId()) {
                     newId = book.getId() + 1;
                 }
@@ -154,7 +160,7 @@ public class BookLogicMock implements IBookLogicMock {
 
         // agrega la book
         logger.info("agregando book " + newBook);
-        books.add(new BookDetailDTO(newBook));
+        BOOKS.add(new BookDetailDTO(newBook));
         return newBook;
     }
 
@@ -172,7 +178,7 @@ public class BookLogicMock implements IBookLogicMock {
         logger.info("recibiendo solictud de modificar book " + updatedBook);
 
         // busca la book con el id suministrado
-        for (BookDTO book : books) {
+        for (BookDTO book : BOOKS) {
             if (Objects.equals(book.getId(), id)) {
 
                 // modifica la book
@@ -207,12 +213,12 @@ public class BookLogicMock implements IBookLogicMock {
         logger.info("recibiendo solictud de eliminar book con id " + id);
 
         // busca la book con el id suministrado
-        for (BookDTO book : books) {
+        for (BookDTO book : BOOKS) {
             if (Objects.equals(book.getId(), id)) {
 
                 // elimina la book
                 logger.info("eliminando book " + book);
-                books.remove(book);
+                BOOKS.remove(book);
                 return;
             }
         }
