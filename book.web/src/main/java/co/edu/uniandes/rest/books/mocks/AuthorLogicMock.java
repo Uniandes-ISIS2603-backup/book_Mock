@@ -240,6 +240,15 @@ public class AuthorLogicMock implements IAuthorLogicMock {
 
     }
 
+        /**
+     * Borra un author asociado a un book
+     *
+     * @param bookId identificador del book
+     * @param authorId identificador del author
+     * @return authors del libro id
+     * @throws BookLogicException cuando no existe una author con el id
+     * suministrado
+     */
     @Override
     public void deleteBookAuthor(Long bookId, Long authorId) throws BookLogicException {
         logger.log(Level.INFO, "recibiendo solictud de eliminar el autor del libro {0} [", bookId);
@@ -255,7 +264,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
 
             }
         }
-        logger.log(Level.INFO, "se elimino el autor del libro {0} con el autor {1} y quedando con los authores {2}", new Object[]{bookId, authorId, book.getAuthors().toString()});
+        logger.log(Level.INFO, "se eliminó el autor del libro {0} con el autor {1} y quedando con los authores {2}", new Object[]{bookId, authorId, book.getAuthors().toString()});
 
     }
 

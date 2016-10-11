@@ -1,6 +1,5 @@
 package co.edu.uniandes.rest.books.mocks;
 
-
 import co.edu.uniandes.rest.books.api.IEditorialLogicMock;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,42 +18,48 @@ public class EditorialLogicMock implements IEditorialLogicMock {
     private final static Logger logger = Logger.getLogger(EditorialLogicMock.class.getName());
 
     // listado de editoriales
-    private static ArrayList<EditorialDTO> editorials;
+    private static ArrayList<EditorialDTO> EDITORIALS = null;
 
-    /**
-     * Constructor. Crea los datos de ejemplo.
-     */
-    public EditorialLogicMock() {
+    protected EditorialLogicMock() {
+        getInstance();
+    }
 
-        if (editorials == null) {
-            editorials = new ArrayList<>();
-            editorials.add(new EditorialDTO(1L, "Plaza y Janes"));
-            editorials.add(new EditorialDTO(2L, "Siruela"));
+    private synchronized static void createInstance() {
+        if (EDITORIALS == null) {
+            EDITORIALS = new ArrayList<>();
+            EDITORIALS.add(new EditorialDTO(1L, "Plaza y Janes"));
+            EDITORIALS.add(new EditorialDTO(2L, "Siruela"));
         }
-
         // indica que se muestren todos los mensajes
         logger.setLevel(Level.INFO);
 
         // muestra información 
-        logger.info("Inicializa la lista de editorials");
-        logger.info("editorials" + editorials);
+        logger.info("Inicializa la lista de EDITORIALS");
+        logger.info("EDITORIALS" + EDITORIALS);
+    }
+
+    public static ArrayList<EditorialDTO> getInstance() {
+        if (EDITORIALS == null) {
+            createInstance();
+        }
+        return EDITORIALS;
     }
 
     /**
-     * Obtiene el listado de editorials.
+     * Obtiene el listado de EDITORIALS.
      *
      * @return lista de editoriales
      * @throws BookLogicException cuando no existe la lista en memoria
      */
     @Override
     public List<EditorialDTO> getEditorials() throws BookLogicException {
-        if (editorials == null) {
+        if (EDITORIALS == null) {
             logger.severe("Error interno: lista de Editorial no existe.");
             throw new BookLogicException("Error interno: lista de Editorials no existe.");
         }
 
-        logger.info("retornando todas los editorials");
-        return editorials;
+        logger.info("retornando todas los EDITORIALS");
+        return EDITORIALS;
     }
 
     /**
@@ -69,7 +74,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
         logger.info("recibiendo solicitud de editorial con id " + id);
 
         // busca el editorial con el id suministrado
-        for (EditorialDTO editorial : editorials) {
+        for (EditorialDTO editorial : EDITORIALS) {
             if (Objects.equals(editorial.getId(), id)) {
                 logger.info("retornando editorial " + editorial);
                 return editorial;
@@ -96,7 +101,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
         // la nueva editorial tiene id ?
         if (newEditorial.getId() != null) {
             // busca el editorial con el id suministrado
-            for (EditorialDTO editorial : editorials) {
+            for (EditorialDTO editorial : EDITORIALS) {
                 // si existe una editorial con ese id
                 if (Objects.equals(editorial.getId(), newEditorial.getId())) {
                     logger.severe("Ya existe una editorial con ese id");
@@ -111,9 +116,9 @@ public class EditorialLogicMock implements IEditorialLogicMock {
 
             // la nueva editorial no tiene id ? 
         } else {
-            for (EditorialDTO editorial : editorials) {
+            for (EditorialDTO editorial : EDITORIALS) {
                 // si existe una editorial con ese id
-                
+
                 if (Objects.equals(editorial.getName(), newEditorial.getName())) {
                     logger.severe("Ya existe una editorial con ese nombre");
                     throw new BookLogicException("Ya existe una editorial con ese nombre");
@@ -123,7 +128,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
             // genera un id para el editorial
             logger.info("Generando id para la nueva editorial");
             long newId = 1;
-            for (EditorialDTO editorial : editorials) {
+            for (EditorialDTO editorial : EDITORIALS) {
                 if (newId <= editorial.getId()) {
                     newId = editorial.getId() + 1;
                 }
@@ -133,7 +138,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
 
         // agrega el editorial
         logger.info("agregando editorial " + newEditorial);
-        editorials.add(newEditorial);
+        EDITORIALS.add(newEditorial);
         return newEditorial;
     }
 
@@ -151,7 +156,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
         logger.info("recibiendo solictud de modificar editorial " + updatedEditorial);
 
         // busca el editorial con el id suministrado
-        for (EditorialDTO editorial : editorials) {
+        for (EditorialDTO editorial : EDITORIALS) {
             if (Objects.equals(editorial.getId(), id)) {
 
                 // modifica el editorial
@@ -181,12 +186,12 @@ public class EditorialLogicMock implements IEditorialLogicMock {
         logger.info("recibiendo solictud de eliminar editorial con id " + id);
 
         // busca el editorial con el id suministrado
-        for (EditorialDTO editorial : editorials) {
+        for (EditorialDTO editorial : EDITORIALS) {
             if (Objects.equals(editorial.getId(), id)) {
 
                 // elimina el editorial
                 logger.info("eliminando editorial " + editorial);
-                editorials.remove(editorial);
+                EDITORIALS.remove(editorial);
                 return;
             }
         }
