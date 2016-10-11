@@ -1,7 +1,8 @@
 (function (ng) {
     var mod = ng.module("authorModule");
 
-    mod.controller("authorsCtrl", ['$scope', '$state', '$stateParams', '$http', 'authorsContext', function ($scope, $state, $stateParams, $http, context) {
+    mod.controller("authorsCtrl", ['$scope', '$state', '$stateParams', '$http', 'authorsContext', '$filter',
+        function ($scope, $state, $stateParams, $http, context,$filter) {
 
             // inicialmente el listado de authors está vacio
             $scope.records = {};
@@ -22,6 +23,7 @@
                             // $http.get es una promesa
                             // cuando llegue el dato, actualice currentRecord
                             $scope.currentRecord = response.data;
+                            $scope.currentRecord.birthDate=$filter('date')($scope.currentRecord.birthDate, "yyyy-MM-dd");;
                         }, responseError);
 
                 // el controlador no recibió un authorId
@@ -31,7 +33,8 @@
                 $scope.currentRecord = {
                     id: undefined /*Tipo Long. El valor se asigna en el backend*/,
                     name: '' /*Tipo String*/,
-                    birthDate: ' '/*Tipo String to convert to date*/
+                    birthDate: ' '/*Tipo String to convert to date*/,
+                    required: true /*Tipo String to convert to Date*/,
                 };
 
                 $scope.alerts = [];

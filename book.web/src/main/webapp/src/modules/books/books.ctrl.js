@@ -1,9 +1,9 @@
 (function (ng) {
     var mod = ng.module("bookModule");
+    
 
-
-    mod.controller("booksCtrl", ['$scope', '$state', '$stateParams', '$http', 'booksContext', 'editorialsContext', '$filter',
-        function ($scope, $state, $stateParams, $http, booksContext, editorialsContext, $filter) {
+    mod.controller("booksCtrl", ['$scope', '$state', '$stateParams', '$http', 'booksContext', 'editorialsContext','$filter',
+        function ($scope, $state, $stateParams, $http, booksContext, editorialsContext,$filter) {
 
             // inicialmente el listado de books está vacio
             $scope.records = {};
@@ -23,9 +23,8 @@
                         .then(function (response) {
                             // $http.get es una promesa
                             // cuando llegue el dato, actualice currentRecord
-                            $scope.currentRecord = response.data;
-                            $scope.currentRecord.publishingdate = $filter('date')($scope.currentRecord.publishingdate, "yyyy-MM-dd");
-                            ;
+                            $scope.currentRecord = response.data;                                           
+                            $scope.currentRecord.publishingdate=$filter('date')($scope.currentRecord.publishingdate, "yyyy-MM-dd");;
                         }, responseError);
 
                 // el controlador no recibió un bookId
@@ -48,7 +47,7 @@
             $http.get(editorialsContext).then(function (response) {
                 $scope.editorials = response.data;
             });
-
+            
             this.saveRecord = function (id) {
                 currentRecord = $scope.currentRecord;
 
@@ -76,8 +75,8 @@
                 }
                 ;
             };
-
-
+            
+            
             this.deleteRecord = function (id) {
                 
                 return $http.delete(booksContext + "/" + id)
@@ -85,9 +84,11 @@
                             $state.reload('booksList');
                         }, responseError);
             };
+           
+
 
             // -----------------------------------------------------------------
-            // Funciones para manejar los mensajes en la aplicación
+            // Funciones para manejra los mensajes en la aplicación
 
 
             //Alertas
