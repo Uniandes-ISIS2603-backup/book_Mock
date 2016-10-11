@@ -246,43 +246,15 @@ public class AuthorLogicMock implements IAuthorLogicMock {
 
         BookDetailDTO book = bookLogic.getBook(bookId);
 
-        //Opción 1
-        /*for (AuthorDTO author : book.getAuthors()) {
+        for (AuthorDTO author : book.getAuthors()) {
             if (Objects.equals(author.getId(), authorId)) {
                 // elimina el author relacionado al libro
                 logger.log(Level.INFO, "eliminando author {0}", author);
                 book.getAuthors().remove(author);
                 break;
-              
-            }
-        }*/
-        
-        // Opción 2
-        List<AuthorDTO> authors = new ArrayList<AuthorDTO>();
 
-        System.out.println("El book");
-        System.out.println(book.toString());
-
-        System.out.println("Los authores");
-        System.out.println(book.getAuthors().toString());
-
-        Iterator<AuthorDTO> iteratorAuthors = book.getAuthors().iterator();
-        while (iteratorAuthors.hasNext()) {
-
-            AuthorDTO author = iteratorAuthors.next();
-
-            if (Objects.equals(author.getId(), authorId)) {
-                // elimina el author relacionado al libro
-                logger.log(Level.INFO, "eliminando author {0}", author);
-                iteratorAuthors.remove();
-            } else {
-                authors.add(author);
             }
         }
-
-        book.setAuthors(authors);
-        // Cierra opción 2
-
         logger.log(Level.INFO, "se elimino el autor del libro {0} con el autor {1} y quedando con los authores {2}", new Object[]{bookId, authorId, book.getAuthors().toString()});
 
     }

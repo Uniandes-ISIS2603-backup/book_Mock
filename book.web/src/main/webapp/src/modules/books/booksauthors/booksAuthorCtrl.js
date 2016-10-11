@@ -73,9 +73,9 @@
             }
 
 
-            this.deleteBookAuthor = function (id) {
-                $log.warn('Delete: One author from book ' + booksContext + "/" + id + "/authors"+ "/" + id);
-                return $http.delete(booksContext + "/" + id + "/authors" + "/" + id)
+            this.deleteBookAuthor = function (_id) {
+                $log.warn('Delete: One author from book ' + booksContext + "/" + id + "/authors"+ "/" + _id);
+                return $http.delete(booksContext + "/" + id + "/authors" + "/" + _id)
                         .then(function () {
                             $state.reload('bookAuthorsList');
                         }, responseError);
