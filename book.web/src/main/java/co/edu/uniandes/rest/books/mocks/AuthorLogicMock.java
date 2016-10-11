@@ -24,24 +24,38 @@ public class AuthorLogicMock implements IAuthorLogicMock {
     private final static Logger logger = Logger.getLogger(AuthorLogicMock.class.getName());
 
     // listado de authores
-    private static ArrayList<AuthorDTO> authors;
+    private static ArrayList<AuthorDTO> AUTHORS;
 
     /**
      * Constructor. Crea los datos de ejemplo.
      */
-    public AuthorLogicMock() {
+    protected AuthorLogicMock() {
+        getInstance();
+    }
 
+    private synchronized static void createInstance() {
         Date date = new Date();
-        if (authors == null) {
-            authors = new ArrayList<>();
-            authors.add(new AuthorDTO(1L, "Gabriel Garcia Marquez", date));
-            authors.add(new AuthorDTO(2L, "Alvaro Mutis", date));
-            authors.add(new AuthorDTO(3L, "Fernando Perez", date));
+        if (AUTHORS == null) {
+            AUTHORS = new ArrayList<>();
+            AUTHORS.add(new AuthorDTO(1L, "Gabriel Garcia Marquez", date));
+            AUTHORS.add(new AuthorDTO(2L, "Alvaro Mutis", date));
+            AUTHORS.add(new AuthorDTO(3L, "Fernando Perez", date));
+            AUTHORS.add(new AuthorDTO(4L, "William Ospina", date));
+            AUTHORS.add(new AuthorDTO(5L, "Rafael Pombo", date));
         }
-
         // indica que se muestren todos los mensajes
         logger.setLevel(Level.INFO);
 
+        // muestra información 
+        logger.info("Inicializa la lista de AUTHORS");
+        logger.info("AUTHORS" + AUTHORS);
+    }
+
+    public static ArrayList<AuthorDTO> getInstance() {
+        if (AUTHORS == null) {
+            createInstance();
+        }
+        return AUTHORS;
     }
 
     /**
@@ -52,13 +66,13 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      */
     @Override
     public List<AuthorDTO> getAuthors() throws BookLogicException {
-        if (authors == null) {
+        if (AUTHORS == null) {
             logger.severe("Error interno: lista de Author no existe.");
             throw new BookLogicException("Error interno: lista de Authors no existe.");
         }
 
         logger.info("retornando todas los authors");
-        return authors;
+        return AUTHORS;
     }
 
     /**
@@ -73,7 +87,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
         logger.info("recibiendo solicitud de author con id " + id);
 
         // busca el author con el id suministrado
-        for (AuthorDTO author : authors) {
+        for (AuthorDTO author : AUTHORS) {
             if (Objects.equals(author.getId(), id)) {
                 logger.info("retornando author " + author);
                 return author;
@@ -100,7 +114,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
         // la nueva author tiene id ?
         if (newAuthor.getId() != null) {
             // busca el author con el id suministrado
-            for (AuthorDTO author : authors) {
+            for (AuthorDTO author : AUTHORS) {
                 // si existe una author con ese id
                 if (Objects.equals(author.getId(), newAuthor.getId())) {
                     logger.severe("Ya existe una author con ese id");
@@ -115,7 +129,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
 
             // la nueva author no tiene id ? 
         } else {
-            for (AuthorDTO author : authors) {
+            for (AuthorDTO author : AUTHORS) {
                 // si existe una author con ese id
 
                 if (Objects.equals(author.getName(), newAuthor.getName())) {
@@ -127,7 +141,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
             // genera un id para el author
             logger.info("Generando id para la nueva author");
             long newId = 1;
-            for (AuthorDTO author : authors) {
+            for (AuthorDTO author : AUTHORS) {
                 if (newId <= author.getId()) {
                     newId = author.getId() + 1;
                 }
@@ -137,7 +151,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
 
         // agrega el author
         logger.log(Level.INFO, "agregando author {0}", newAuthor);
-        authors.add(newAuthor);
+        AUTHORS.add(newAuthor);
         return newAuthor;
     }
 
@@ -155,7 +169,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
         logger.log(Level.INFO, "recibiendo solictud de modificar author {0}", updatedAuthor);
 
         // busca el author con el id suministrado
-        for (AuthorDTO author : authors) {
+        for (AuthorDTO author : AUTHORS) {
             if (Objects.equals(author.getId(), id)) {
 
                 // modifica el author
@@ -186,12 +200,12 @@ public class AuthorLogicMock implements IAuthorLogicMock {
         logger.log(Level.INFO, "recibiendo solictud de eliminar author con id {0}", id);
 
         // busca el author con el id suministrado
-        for (AuthorDTO author : authors) {
+        for (AuthorDTO author : AUTHORS) {
             if (Objects.equals(author.getId(), id)) {
 
                 // elimina el author
                 logger.log(Level.INFO, "eliminando author {0}", author);
-                authors.remove(author);
+                AUTHORS.remove(author);
                 return;
             }
         }
@@ -240,7 +254,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
 
     }
 
-        /**
+    /**
      * Borra un author asociado a un book
      *
      * @param bookId identificador del book

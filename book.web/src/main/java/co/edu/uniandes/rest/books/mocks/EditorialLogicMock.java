@@ -29,6 +29,8 @@ public class EditorialLogicMock implements IEditorialLogicMock {
             EDITORIALS = new ArrayList<>();
             EDITORIALS.add(new EditorialDTO(1L, "Plaza y Janes"));
             EDITORIALS.add(new EditorialDTO(2L, "Siruela"));
+            EDITORIALS.add(new EditorialDTO(3L, "Universidad de los Andes"));
+            EDITORIALS.add(new EditorialDTO(4L, "Ediciones USTA"));
         }
         // indica que se muestren todos los mensajes
         logger.setLevel(Level.INFO);
