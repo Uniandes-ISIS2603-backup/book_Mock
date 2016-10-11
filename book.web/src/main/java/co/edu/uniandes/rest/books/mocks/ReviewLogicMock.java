@@ -31,21 +31,23 @@ public class ReviewLogicMock implements IReviewLogicMock {
     private final static Logger logger = Logger.getLogger(ReviewLogicMock.class.getName());
 
     // listado de reviews
-    private static ArrayList<ReviewDTO> reviews;
-    
-    @Inject
-    private IBookLogicMock bookLogic;
+    private static ArrayList<ReviewDTO> REVIEWS;
+
 
     /**
      * Constructor. Crea los datos de ejemplo.
      */
-    public ReviewLogicMock() {
-        
-        if (reviews == null) {
-            reviews = new ArrayList<>();
-            reviews.add(new ReviewDTO(1L, " ", "El Tiempo", "Maravillosa descripción de lo ilógico"));
-            reviews.add(new ReviewDTO(2L, " ", "El Espectador", "Fantástica obra de la realidad imposible"));
-            
+    protected ReviewLogicMock() {
+        getInstance();
+    }
+
+    private synchronized static void createInstance() {
+        if (REVIEWS == null) {
+            REVIEWS = new ArrayList<>();
+            REVIEWS.add(new ReviewDTO(1L, " ", "El Tiempo", "Maravillosa descripción de lo ilógico"));
+            REVIEWS.add(new ReviewDTO(2L, " ", "El Espectador", "Fantástica obra de la realidad imposible"));
+            REVIEWS.add(new ReviewDTO(3L, " ", "El Espectador", "Buen libro para todos"));
+
         }
 
         // indica que se muestren todos los mensajes
@@ -53,7 +55,14 @@ public class ReviewLogicMock implements IReviewLogicMock {
 
         // muestra información 
         logger.info("Inicializa la lista de reviews");
-        logger.info("reviews" + reviews);
+        logger.info("reviews" + REVIEWS);
+    }
+
+    public static ArrayList<ReviewDTO> getInstance() {
+        if (REVIEWS == null) {
+            createInstance();
+        }
+        return REVIEWS;
     }
 
     /**
@@ -64,13 +73,13 @@ public class ReviewLogicMock implements IReviewLogicMock {
      */
     @Override
     public List<ReviewDTO> getReviews(Long idBook) throws BookLogicException {
-        if (reviews == null) {
+        if (REVIEWS == null) {
             logger.severe("Error interno: lista de reviews no existe.");
             throw new BookLogicException("Error interno: lista de reviews no existe.");
         }
-        
+
         logger.info("retornando todas las reviews");
-        return reviews;
+        return REVIEWS;
     }
 
     /**
@@ -85,7 +94,7 @@ public class ReviewLogicMock implements IReviewLogicMock {
         logger.info("recibiendo solicitud de getReview con id " + id);
 
         // busca la getReview con el id suministrado
-        for (ReviewDTO getReview : reviews) {
+        for (ReviewDTO getReview : REVIEWS) {
             if (Objects.equals(getReview.getId(), id)) {
                 logger.info("retornando getReview " + getReview);
                 return getReview;
@@ -113,7 +122,7 @@ public class ReviewLogicMock implements IReviewLogicMock {
         // la nueva getReview tiene id ?
         if (newReview.getId() != null) {
             // busca la getReview con el id suministrado
-            for (ReviewDTO getReview : reviews) {
+            for (ReviewDTO getReview : REVIEWS) {
                 // si existe una getReview con ese id
                 if (Objects.equals(getReview.getId(), newReview.getId())) {
                     logger.severe("Ya existe una getReview con ese id");
@@ -123,24 +132,24 @@ public class ReviewLogicMock implements IReviewLogicMock {
                     logger.severe("Ya existe una getReview con ese nombre");
                     throw new BookLogicException("Ya existe una getReview con ese nombre");
                 }
-                
+
             }
 
             // la nueva getReview no tiene id ? 
         } else {
-            for (ReviewDTO getReview : reviews) {
+            for (ReviewDTO getReview : REVIEWS) {
                 // si existe una getReview con ese id
 
                 if (Objects.equals(getReview.getName(), newReview.getName())) {
                     logger.severe("Ya existe una getReview con ese nombre");
                     throw new BookLogicException("Ya existe una getReview con ese nombre");
                 }
-                
+
             }
             // genera un id para la getReview
             logger.info("Generando id para la nueva getReview");
             long newId = 1;
-            for (ReviewDTO getReview : reviews) {
+            for (ReviewDTO getReview : REVIEWS) {
                 if (newId <= getReview.getId()) {
                     newId = getReview.getId() + 1;
                 }
@@ -150,7 +159,7 @@ public class ReviewLogicMock implements IReviewLogicMock {
 
         // agrega la getReview
         logger.info("agregando getReview " + newReview);
-        reviews.add(newReview);        
+        REVIEWS.add(newReview);
         return newReview;
     }
 
@@ -168,7 +177,7 @@ public class ReviewLogicMock implements IReviewLogicMock {
         logger.info("recibiendo solictud de modificar getReview " + updatedReview);
 
         // busca la getReview con el id suministrado
-        for (ReviewDTO getReview : reviews) {
+        for (ReviewDTO getReview : REVIEWS) {
             if (Objects.equals(getReview.getId(), id)) {
 
                 // modifica la getReview
@@ -198,12 +207,12 @@ public class ReviewLogicMock implements IReviewLogicMock {
         logger.info("recibiendo solictud de eliminar getReview con id " + id);
 
         // busca la getReview con el id suministrado
-        for (ReviewDTO getReview : reviews) {
+        for (ReviewDTO getReview : REVIEWS) {
             if (Objects.equals(getReview.getId(), id)) {
 
                 // elimina la getReview
                 logger.info("eliminando getReview " + getReview);
-                reviews.remove(getReview);
+                REVIEWS.remove(getReview);
                 return;
             }
         }
