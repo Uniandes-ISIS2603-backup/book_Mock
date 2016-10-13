@@ -71,6 +71,9 @@ public class ReviewResource {
      */
     @POST
     public ReviewDTO createReview(@PathParam("idBook") Long idBook, ReviewDTO review) throws BookLogicException {
+        System.out.println("En el servicio: ");
+        System.out.println("idBook "+idBook);
+        System.out.println("review "+review.toString());
         return reviewLogic.createReview(idBook, review);
     }
 

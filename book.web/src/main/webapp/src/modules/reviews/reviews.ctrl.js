@@ -48,6 +48,13 @@
 
                 // si el id es null, es un registro nuevo, entonces lo crea
                 if (id == null) {
+                    
+                    console.log("El id del book a agregar review");
+                     console.log($stateParams.bookId);
+                    console.log("Review context");
+                    console.log($scope.reviewsContext);
+                    console.log("Review");
+                    console.log(currentRecord);
 
                     // ejecuta POST en el recurso REST
                     return $http.post(booksContext + "/" + $stateParams.bookId + $scope.reviewsContext, currentRecord)

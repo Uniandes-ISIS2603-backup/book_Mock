@@ -32,8 +32,10 @@ public class ReviewLogicMock implements IReviewLogicMock {
 
     // listado de reviews
     private static ArrayList<ReviewDTO> REVIEWS;
-
-
+    
+    @Inject
+    private IBookLogicMock bookLogic;
+    
     /**
      * Constructor. Crea los datos de ejemplo.
      */
@@ -73,13 +75,14 @@ public class ReviewLogicMock implements IReviewLogicMock {
      */
     @Override
     public List<ReviewDTO> getReviews(Long idBook) throws BookLogicException {
-        if (REVIEWS == null) {
-            logger.severe("Error interno: lista de reviews no existe.");
+        BookDetailDTO book = bookLogic.getBook(idBook);
+        if (book.getReviews() == null) {
+            logger.severe("Error interno: lista de reviews no existe. Para el book "+idBook);
             throw new BookLogicException("Error interno: lista de reviews no existe.");
         }
 
-        logger.info("retornando todas las reviews");
-        return REVIEWS;
+        logger.log(Level.INFO, "retornando todas las reviews del book {0}", idBook);
+        return book.getReviews();
     }
 
     /**
@@ -158,8 +161,13 @@ public class ReviewLogicMock implements IReviewLogicMock {
         }
 
         // agrega la getReview
-        logger.info("agregando getReview " + newReview);
-        REVIEWS.add(newReview);
+        BookDetailDTO book = bookLogic.getBook(idBook);
+        List<ReviewDTO> reviewsBook = book.getReviews();
+        
+        reviewsBook.add(newReview);
+        book.setReviews(reviewsBook);
+        
+        logger.info("agregando newReview " + newReview);
         return newReview;
     }
 

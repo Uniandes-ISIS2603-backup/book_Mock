@@ -10,18 +10,25 @@
 
         <fieldset>
             <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
-            <!-- Source -->
+             <!-- Name -->
             <div class="form-group col-md-6" ng-class="{'has-success': form.name.$valid && form.name.$dirty, 'has-error': form.name.$invalid && (form.name.$dirty || form.$submitted)}" >
+                <label for="source" class="col-md-2 control-label">Name</label>
+                <div class="col-md-10">
+                    <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-init="currentRecord.name" required />
+                </div>
+            </div>
+            <!-- Source -->
+            <div class="form-group col-md-6" ng-class="{'has-success': form.source.$valid && form.source.$dirty, 'has-error': form.source.$invalid && (form.source.$dirty || form.$submitted)}" >
                 <label for="source" class="col-md-2 control-label">Source</label>
                 <div class="col-md-10">
                     <input id="source" name="source" class="form-control" type="text" ng-model="currentRecord.source" ng-init="currentRecord.source" required />
                 </div>
             </div>
             <!-- Description -->
-            <div class="form-group col-md-6" ng-class="{'has-success': form.name.$valid && form.name.$dirty, 'has-error': form.name.$invalid && (form.name.$dirty || form.$submitted)}" >
+            <div class="form-group col-md-6" ng-class="{'has-success': form.description.$valid && form.description.$dirty, 'has-error': form.description.$invalid && (form.description.$dirty || form.$submitted)}" >
                 <label for="description" class="col-md-2 control-label">Description</label>
                 <div class="col-md-10">
-                    <input id="name" name="description" class="form-control" type="text" ng-model="currentRecord.description" ng-init="currentRecord.description" required />
+                    <input id="description" name="description" class="form-control" type="text" ng-model="currentRecord.description" ng-init="currentRecord.description" required />
                 </div>
             </div>
           
