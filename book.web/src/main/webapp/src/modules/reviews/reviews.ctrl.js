@@ -1,15 +1,16 @@
 (function (ng) {
     var mod = ng.module("bookModule");
 
-    mod.controller("reviewsCtrl", ['$scope', '$state', '$stateParams', '$http','booksContext',  
-        function ($scope, $state, $stateParams, $http, booksContext ) {
+    mod.controller("reviewsCtrl", ['$scope', '$state', '$stateParams', '$http', 'booksContext',
+        function ($scope, $state, $stateParams, $http, booksContext) {
 
             // inicialmente el listado de reviews está vacio
             $scope.reviewsContext = '/reviews';
             $scope.records = {};
-            // carga las reviews
+            // carga las reviews del book
             $http.get(booksContext + "/" + $stateParams.bookId + $scope.reviewsContext).then(function (response) {
                 $scope.records = response.data;
+                console.log($scope.records)
             }, responseError);
 
             // el controlador recibió un reviewId ??
@@ -19,7 +20,7 @@
                 // toma el id del parámetro
                 id = $stateParams.reviewId;
                 // obtiene el dato del recurso REST
-                $http.get(booksContext + "/" + $stateParams.bookId +$scope.reviewsContext + "/" + id)
+                $http.get(booksContext + "/" + $stateParams.bookId + $scope.reviewsContext + "/" + id)
                         .then(function (response) {
                             // $http.get es una promesa
                             // cuando llegue el dato, actualice currentRecord
@@ -35,30 +36,23 @@
                     name: '' /*Tipo String*/,
                     source: '' /*Tipo String*/,
                     description: '' /*Tipo String*/,
-                   
                 };
 
                 $scope.alerts = [];
             }
 
-           
-            
+
+
             this.saveRecord = function (id) {
                 currentRecord = $scope.currentRecord;
 
                 // si el id es null, es un registro nuevo, entonces lo crea
                 if (id == null) {
-                    
-                    console.log("El id del book a agregar review");
-                     console.log($stateParams.bookId);
-                    console.log("Review context");
-                    console.log($scope.reviewsContext);
-                    console.log("Review");
-                    console.log(currentRecord);
 
                     // ejecuta POST en el recurso REST
                     return $http.post(booksContext + "/" + $stateParams.bookId + $scope.reviewsContext, currentRecord)
                             .then(function () {
+                                
                                 // $http.post es una promesa
                                 // cuando termine bien, cambie de estado
                                 $state.go('reviewsList');
@@ -78,6 +72,12 @@
                 ;
             };
 
+            this.deleteRecord = function (id) {
+                return $http.delete(booksContext + "/" + $stateParams.bookId + $scope.reviewsContext + "/" + id)
+                        .then(function () {
+                            $state.reload('reviewsList');
+                        }, responseError);
+            };
 
             // -----------------------------------------------------------------
             // Funciones para manejra los mensajes en la aplicación
