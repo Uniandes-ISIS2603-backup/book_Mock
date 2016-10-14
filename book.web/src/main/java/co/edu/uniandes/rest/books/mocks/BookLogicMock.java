@@ -6,18 +6,16 @@ package co.edu.uniandes.rest.books.mocks;
  * @citi Asistente
  */
 import co.edu.uniandes.rest.books.api.IBookLogicMock;
-import co.edu.uniandes.rest.books.dtos.AuthorDTO;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import co.edu.uniandes.rest.books.dtos.BookDTO;
 import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
 import co.edu.uniandes.rest.books.dtos.EditorialDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Date;
 import javax.ejb.Stateless;
 
@@ -29,7 +27,6 @@ public class BookLogicMock implements IBookLogicMock {
 
     // listado de books
     private static ArrayList<BookDetailDTO> BOOKS;
-    private static BookLogicMock instance = null;
 
     /**
      * Constructor. Crea los datos de ejemplo.
@@ -51,8 +48,8 @@ public class BookLogicMock implements IBookLogicMock {
         logger.setLevel(Level.INFO);
 
         // muestra información 
-        logger.info("Inicializa la lista de BOOKS");
-        logger.info("BOOKS" + BOOKS);
+        logger.info("Inicializa la lista de Books");
+        logger.log(Level.INFO, "Books {0}", BOOKS);
     }
 
     public static ArrayList<BookDetailDTO> getInstance() {
@@ -75,7 +72,7 @@ public class BookLogicMock implements IBookLogicMock {
             throw new BookLogicException("Error interno: lista de books no existe.");
         }
 
-        logger.info("retornando todas las books");
+        logger.info("retornando todas las Books");
 
         ArrayList<BookDTO> booksMinimum = new ArrayList<>();
         for (int i = 0; i < BOOKS.size(); i++) {
@@ -93,12 +90,12 @@ public class BookLogicMock implements IBookLogicMock {
      */
     @Override
     public BookDetailDTO getBook(Long id) throws BookLogicException {
-        logger.info("getbook con id " + id);
+        logger.log(Level.INFO, "getbook con id {0}", id);
 
         // busca la book con el id suministrado
         for (BookDetailDTO book : BOOKS) {
             if (Objects.equals(book.getId(), id)) {
-                logger.info("getbook " + book);
+                logger.log(Level.INFO, "getbook {0}", book);
                 return book;
             }
         }
@@ -118,7 +115,7 @@ public class BookLogicMock implements IBookLogicMock {
      */
     @Override
     public BookDTO createBook(BookDTO newBook) throws BookLogicException {
-        logger.info("recibiendo solicitud de agregar book " + newBook);
+        logger.log(Level.INFO, "recibiendo solicitud de agregar book {0}", newBook);
 
         // la nueva book tiene id ?
         if (newBook.getId() != null) {
@@ -128,7 +125,7 @@ public class BookLogicMock implements IBookLogicMock {
                 if (Objects.equals(book.getId(), newBook.getId())) {
                     logger.severe("Ya existe una book con ese id");
                     throw new BookLogicException("Ya existe una book con ese id");
-                };
+                }
                 if (Objects.equals(book.getName(), newBook.getName())) {
                     logger.severe("Ya existe una book con ese nombre");
                     throw new BookLogicException("Ya existe una book con ese nombre");
@@ -159,7 +156,7 @@ public class BookLogicMock implements IBookLogicMock {
         }
 
         // agrega la book
-        logger.info("agregando book " + newBook);
+        logger.log(Level.INFO, "agregando book {0}", newBook);
         BOOKS.add(new BookDetailDTO(newBook));
         return newBook;
     }
@@ -168,14 +165,14 @@ public class BookLogicMock implements IBookLogicMock {
      * Actualiza los datos de una book
      *
      * @param id identificador de la book a modificar
-     * @param book book a modificar
+     * @param updatedBook
      * @return datos de la book modificada
      * @throws BookLogicException cuando no existe una book con el id
      * suministrado
      */
     @Override
     public BookDTO updateBook(Long id, BookDTO updatedBook) throws BookLogicException {
-        logger.info("recibiendo solictud de modificar book " + updatedBook);
+        logger.log(Level.INFO, "recibiendo solictud de modificar book {0}", updatedBook);
 
         // busca la book con el id suministrado
         for (BookDTO book : BOOKS) {
@@ -191,7 +188,7 @@ public class BookLogicMock implements IBookLogicMock {
                 book.setEditorial(updatedBook.getEditorial());
 
                 // retorna la book modificada
-                logger.info("Modificando book " + book);
+                logger.log(Level.INFO, "Modificando book {0}", book);
                 return book;
             }
         }
@@ -210,16 +207,14 @@ public class BookLogicMock implements IBookLogicMock {
      */
     @Override
     public void deleteBook(Long id) throws BookLogicException {
-        logger.info("recibiendo solictud de eliminar book con id " + id);
+        logger.log(Level.INFO, "recibiendo solictud de eliminar book con id {0}", id);
 
         // busca la book con el id suministrado
         for (BookDTO book : BOOKS) {
             if (Objects.equals(book.getId(), id)) {
-
                 // elimina la book
-                logger.info("eliminando book " + book);
+                logger.log(Level.INFO, "eliminando book {0}", book);
                 BOOKS.remove(book);
-                return;
             }
         }
 

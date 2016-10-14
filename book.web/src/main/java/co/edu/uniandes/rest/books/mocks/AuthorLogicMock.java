@@ -2,16 +2,16 @@ package co.edu.uniandes.rest.books.mocks;
 
 import co.edu.uniandes.rest.books.api.IAuthorLogicMock;
 import co.edu.uniandes.rest.books.api.IBookLogicMock;
+import co.edu.uniandes.rest.books.dtos.AuthorDTO;
+import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
+import co.edu.uniandes.rest.books.exceptions.BookLogicException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import co.edu.uniandes.rest.books.dtos.AuthorDTO;
-import co.edu.uniandes.rest.books.dtos.BookDetailDTO;
-import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import java.util.Date;
-import java.util.Iterator;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -47,8 +47,8 @@ public class AuthorLogicMock implements IAuthorLogicMock {
         logger.setLevel(Level.INFO);
 
         // muestra información 
-        logger.info("Inicializa la lista de AUTHORS");
-        logger.info("AUTHORS" + AUTHORS);
+        logger.info("Inicializa la lista de Authors");
+        logger.log(Level.INFO, "Authors{0}", AUTHORS);
     }
 
     public static ArrayList<AuthorDTO> getInstance() {
@@ -71,7 +71,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
             throw new BookLogicException("Error interno: lista de Authors no existe.");
         }
 
-        logger.info("retornando todas los authors");
+        logger.info("retornando todas los Authors");
         return AUTHORS;
     }
 
@@ -84,12 +84,12 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      */
     @Override
     public AuthorDTO getAuthor(Long id) throws BookLogicException {
-        logger.info("recibiendo solicitud de author con id " + id);
+        logger.log(Level.INFO, "recibiendo solicitud de author con id {0}", id);
 
         // busca el author con el id suministrado
         for (AuthorDTO author : AUTHORS) {
             if (Objects.equals(author.getId(), id)) {
-                logger.info("retornando author " + author);
+                logger.log(Level.INFO, "retornando author {0}", author);
                 return author;
             }
         }
@@ -109,7 +109,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      */
     @Override
     public AuthorDTO createAuthor(AuthorDTO newAuthor) throws BookLogicException {
-        logger.info("recibiendo solicitud de agregar author " + newAuthor);
+        logger.log(Level.INFO, "recibiendo solicitud de agregar author {0}", newAuthor);
 
         // la nueva author tiene id ?
         if (newAuthor.getId() != null) {
@@ -119,7 +119,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
                 if (Objects.equals(author.getId(), newAuthor.getId())) {
                     logger.severe("Ya existe una author con ese id");
                     throw new BookLogicException("Ya existe una author con ese id");
-                };
+                }
                 if (Objects.equals(author.getName(), newAuthor.getName())) {
                     logger.severe("Ya existe una author con ese nombre");
                     throw new BookLogicException("Ya existe una author con ese nombre");
@@ -159,7 +159,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      * Actualiza los datos de una author
      *
      * @param id identificador de el author a modificar
-     * @param author author a modificar
+     * @param updatedAuthor
      * @return datos de el author modificada
      * @throws BookLogicException cuando no existe una author con el id
      * suministrado
@@ -178,7 +178,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
                 author.setBirthDate(updatedAuthor.getBirthDate());
 
                 // retorna el author modificada
-                logger.info("Modificando author " + author);
+                logger.log(Level.INFO, "Modificando author {0}", author);
                 return author;
             }
         }
@@ -219,7 +219,7 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      * Actualiza la lista de autores de un book
      *
      * @param id identificador del book
-     * @param authors lista nueva de authors
+     * @param updatedAuthors
      * @return authors lista nueva de authors
      * @throws BookLogicException cuando no existe una author con el id
      * suministrado
@@ -259,7 +259,6 @@ public class AuthorLogicMock implements IAuthorLogicMock {
      *
      * @param bookId identificador del book
      * @param authorId identificador del author
-     * @return authors del libro id
      * @throws BookLogicException cuando no existe una author con el id
      * suministrado
      */

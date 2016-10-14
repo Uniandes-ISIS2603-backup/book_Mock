@@ -1,14 +1,14 @@
 package co.edu.uniandes.rest.books.mocks;
 
 import co.edu.uniandes.rest.books.api.IEditorialLogicMock;
+import co.edu.uniandes.rest.books.dtos.EditorialDTO;
+import co.edu.uniandes.rest.books.exceptions.BookLogicException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import co.edu.uniandes.rest.books.dtos.EditorialDTO;
-import co.edu.uniandes.rest.books.exceptions.BookLogicException;
 import javax.ejb.Stateless;
 
 @Stateless
@@ -36,8 +36,8 @@ public class EditorialLogicMock implements IEditorialLogicMock {
         logger.setLevel(Level.INFO);
 
         // muestra información 
-        logger.info("Inicializa la lista de EDITORIALS");
-        logger.info("EDITORIALS" + EDITORIALS);
+        logger.info("Inicializa la lista de Editorials");
+        logger.log(Level.INFO, "Editorials{0}", EDITORIALS);
     }
 
     public static ArrayList<EditorialDTO> getInstance() {
@@ -60,7 +60,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
             throw new BookLogicException("Error interno: lista de Editorials no existe.");
         }
 
-        logger.info("retornando todas los EDITORIALS");
+        logger.info("retornando todas los Editorials");
         return EDITORIALS;
     }
 
@@ -73,12 +73,12 @@ public class EditorialLogicMock implements IEditorialLogicMock {
      */
     @Override
     public EditorialDTO getEditorial(Long id) throws BookLogicException {
-        logger.info("recibiendo solicitud de editorial con id " + id);
+        logger.log(Level.INFO, "recibiendo solicitud de editorial con id {0}", id);
 
         // busca el editorial con el id suministrado
         for (EditorialDTO editorial : EDITORIALS) {
             if (Objects.equals(editorial.getId(), id)) {
-                logger.info("retornando editorial " + editorial);
+                logger.log(Level.INFO, "retornando editorial {0}", editorial);
                 return editorial;
             }
         }
@@ -98,7 +98,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
      */
     @Override
     public EditorialDTO createEditorial(EditorialDTO newEditorial) throws BookLogicException {
-        logger.info("recibiendo solicitud de agregar editorial " + newEditorial);
+        logger.log(Level.INFO, "recibiendo solicitud de agregar editorial {0}", newEditorial);
 
         // la nueva editorial tiene id ?
         if (newEditorial.getId() != null) {
@@ -139,7 +139,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
         }
 
         // agrega el editorial
-        logger.info("agregando editorial " + newEditorial);
+        logger.log(Level.INFO, "agregando editorial {0}", newEditorial);
         EDITORIALS.add(newEditorial);
         return newEditorial;
     }
@@ -148,14 +148,14 @@ public class EditorialLogicMock implements IEditorialLogicMock {
      * Actualiza los datos de una editorial
      *
      * @param id identificador de el editorial a modificar
-     * @param editorial editorial a modificar
+     * @param updatedEditorial
      * @return datos de el editorial modificada
      * @throws BookLogicException cuando no existe una editorial con el id
      * suministrado
      */
     @Override
     public EditorialDTO updateEditorial(Long id, EditorialDTO updatedEditorial) throws BookLogicException {
-        logger.info("recibiendo solictud de modificar editorial " + updatedEditorial);
+        logger.log(Level.INFO, "recibiendo solictud de modificar editorial {0}", updatedEditorial);
 
         // busca el editorial con el id suministrado
         for (EditorialDTO editorial : EDITORIALS) {
@@ -166,7 +166,7 @@ public class EditorialLogicMock implements IEditorialLogicMock {
                 editorial.setName(updatedEditorial.getName());
 
                 // retorna el editorial modificada
-                logger.info("Modificando editorial " + editorial);
+                logger.log(Level.INFO, "Modificando editorial {0}", editorial);
                 return editorial;
             }
         }
