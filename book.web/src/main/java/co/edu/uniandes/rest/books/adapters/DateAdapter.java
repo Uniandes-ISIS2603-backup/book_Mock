@@ -14,8 +14,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  *
  * @author Rubby
  */
-
-    public class DateAdapter extends XmlAdapter<String, Date> {
+public class DateAdapter extends XmlAdapter<String, Date> {
 
     /**
      * Thread safe {@link DateFormat}.

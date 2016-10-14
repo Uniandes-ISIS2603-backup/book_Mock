@@ -2,7 +2,7 @@
     var mod = ng.module("authorModule");
 
     mod.controller("authorsCtrl", ['$scope', '$state', '$stateParams', '$http', 'authorsContext', '$filter',
-        function ($scope, $state, $stateParams, $http, context,$filter) {
+        function ($scope, $state, $stateParams, $http, context, $filter) {
 
             // inicialmente el listado de authors está vacio
             $scope.records = {};
@@ -23,7 +23,7 @@
                             // $http.get es una promesa
                             // cuando llegue el dato, actualice currentRecord
                             $scope.currentRecord = response.data;
-                            $scope.currentRecord.birthDate=$filter('date')($scope.currentRecord.birthDate, "yyyy-MM-dd");;
+                            $scope.currentRecord.birthDate = $filter('date')($scope.currentRecord.birthDate, "yyyy-MM-dd");
                         }, responseError);
 
                 // el controlador no recibió un authorId
@@ -34,7 +34,7 @@
                     id: undefined /*Tipo Long. El valor se asigna en el backend*/,
                     name: '' /*Tipo String*/,
                     birthDate: ' '/*Tipo String to convert to date*/,
-                    required: true /*Tipo String to convert to Date*/,
+                    required: true /*Tipo String to convert to Date*/
                 };
 
                 $scope.alerts = [];
@@ -42,13 +42,12 @@
 
 
             this.saveRecord = function (id) {
-                
+
                 currentRecord = $scope.currentRecord;
 
                 // si el id es null, es un registro nuevo, entonces lo crea
-                if (id == null) {
+                if (id === null) {
 
-                
                     // ejecuta POST en el recurso REST
                     return $http.post(context, currentRecord)
                             .then(function () {
@@ -78,7 +77,7 @@
                         }, responseError);
             };
 
-            
+
             // -----------------------------------------------------------------
             // Funciones para manejar los mensajes en la aplicación
 

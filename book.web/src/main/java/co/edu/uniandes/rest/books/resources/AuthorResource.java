@@ -85,6 +85,9 @@ public class AuthorResource {
     @PUT
     @Path("{id: \\d+}")
     public AuthorDTO updateAuthor(@PathParam("id") Long id, AuthorDTO author) throws BookLogicException {
+        System.out.println("---- En el servicio a editar author");
+        System.out.println(author.toString());
+        System.out.println("------------");
         return authorLogic.updateAuthor(id, author);
     }
 
