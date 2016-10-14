@@ -6,8 +6,7 @@
 package co.edu.uniandes.rest.books.dtos;
 
 /**
- * Objeto de transferencia de datos de Ciudades.
- * @citi Asistente
+ * Objeto de transferencia de datos de Editorial.
  */
 public class EditorialDTO {
     private Long id;

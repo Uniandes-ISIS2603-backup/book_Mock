@@ -1,8 +1,6 @@
 package co.edu.uniandes.rest.books.dtos;
 
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 public class ReviewDTO {
 
     private Long id;

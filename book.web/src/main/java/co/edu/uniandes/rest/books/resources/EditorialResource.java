@@ -8,11 +8,9 @@ package co.edu.uniandes.rest.books.resources;
 import co.edu.uniandes.rest.books.api.IEditorialLogicMock;
 import co.edu.uniandes.rest.books.dtos.EditorialDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
-import co.edu.uniandes.rest.books.mocks.EditorialLogicMock;
 
 import java.util.List;
 import javax.inject.Inject;
-
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,26 +23,26 @@ import javax.ws.rs.Produces;
 
 /**
  * Clase que implementa el recurso REST correspondiente a "editorials".
- * 
- * Note que la aplicación (definida en RestConfig.java) define la ruta
- * "/api" y este recurso tiene la ruta "editorials". 
- * Al ejecutar la aplicación, el recurse será accesibe a través de la 
- * ruta "/api/editorials" 
- * 
- * 
+ *
+ * Note que la aplicación (definida en RestConfig.java) define la ruta "/api" y
+ * este recurso tiene la ruta "editorials". Al ejecutar la aplicación, el
+ * recurse será accesibe a través de la ruta "/api/editorials"
+ *
+ *
  */
 @Path("editorials")
 @Produces("application/json")
 public class EditorialResource {
 
-	
-	@Inject private IEditorialLogicMock editorialLogic;
+    @Inject
+    private IEditorialLogicMock editorialLogic;
 
-	/**
-	 * Obtiene el listado de editoriales. 
-	 * @return lista de editoriales
-	 * @throws BookLogicException excepción retornada por la lógica  
-	 */
+    /**
+     * Obtiene el listado de editoriales.
+     *
+     * @return lista de editoriales
+     * @throws BookLogicException excepción retornada por la lógica
+     */
     @GET
     public List<EditorialDTO> getEditorials() throws BookLogicException {
         return editorialLogic.getEditorials();
@@ -52,6 +50,7 @@ public class EditorialResource {
 
     /**
      * Obtiene un editorial
+     *
      * @param id identificador de el editorial
      * @return editorial encontrada
      * @throws BookLogicException cuando el editorial no existe
@@ -64,9 +63,11 @@ public class EditorialResource {
 
     /**
      * Agrega un editorial
+     *
      * @param editorial editorial a agregar
      * @return datos de el editorial a agregar
-     * @throws BookLogicException cuando ya existe un editorial con el id suministrado
+     * @throws BookLogicException cuando ya existe un editorial con el id
+     * suministrado
      */
     @POST
     public EditorialDTO createEditorial(EditorialDTO editorial) throws BookLogicException {
@@ -75,10 +76,12 @@ public class EditorialResource {
 
     /**
      * Actualiza los datos de un editorial
+     *
      * @param id identificador de el editorial a modificar
      * @param editorial editorial a modificar
-     * @return datos de el editorial modificada 
-     * @throws BookLogicException cuando no existe un editorial con el id suministrado
+     * @return datos de el editorial modificada
+     * @throws BookLogicException cuando no existe un editorial con el id
+     * suministrado
      */
     @PUT
     @Path("{id: \\d+}")
@@ -88,13 +91,15 @@ public class EditorialResource {
 
     /**
      * Elimina los datos de un editorial
+     *
      * @param id identificador de el editorial a eliminar
-     * @throws BookLogicException cuando no existe un editorial con el id suministrado
+     * @throws BookLogicException cuando no existe un editorial con el id
+     * suministrado
      */
     @DELETE
     @Path("{id: \\d+}")
     public void deleteEditorial(@PathParam("id") Long id) throws BookLogicException {
-    	editorialLogic.deleteEditorial(id);
+        editorialLogic.deleteEditorial(id);
     }
 
 }

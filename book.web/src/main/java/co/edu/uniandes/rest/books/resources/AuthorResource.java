@@ -33,12 +33,13 @@ import javax.ws.rs.Produces;
 @Produces("application/json")
 public class AuthorResource {
 
-    @Inject private IAuthorLogicMock authorLogic;
+    @Inject
+    private IAuthorLogicMock authorLogic;
 
     /**
      * Obtiene el listado de authores.
      *
-     * @return lista de authores
+     * @return lista de authors
      * @throws BookLogicException excepción retornada por la lógica
      */
     @GET

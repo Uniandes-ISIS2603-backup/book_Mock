@@ -8,7 +8,6 @@ package co.edu.uniandes.rest.books.resources;
 import co.edu.uniandes.rest.books.api.IReviewLogicMock;
 import co.edu.uniandes.rest.books.dtos.ReviewDTO;
 import co.edu.uniandes.rest.books.exceptions.BookLogicException;
-import co.edu.uniandes.rest.books.mocks.ReviewLogicMock;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -29,17 +28,18 @@ import javax.ws.rs.Produces;
  * este recurso tiene la ruta "reviews". Al ejecutar la aplicación, el recurse
  * será accesibe a través de la ruta "/api/books/idBook/reviews"
  *
- * @citi Asistente
  */
 @Path("books/{idBook: \\d+}/reviews")
 @Produces("application/json")
 public class ReviewResource {
 
-    @Inject private IReviewLogicMock reviewLogic;
+    @Inject
+    private IReviewLogicMock reviewLogic;
 
     /**
      * Obtiene el listado de reviews.
      *
+     * @param idBook
      * @return lista de reviews
      * @throws BookLogicException excepción retornada por la lógica
      */
@@ -51,6 +51,7 @@ public class ReviewResource {
     /**
      * Obtiene una review
      *
+     * @param idBook
      * @param id identificador de la review
      * @return review encontrada
      * @throws BookLogicException cuando la review no existe
@@ -64,6 +65,7 @@ public class ReviewResource {
     /**
      * Agrega una review
      *
+     * @param idBook
      * @param review review a agregar
      * @return datos de la review a agregar
      * @throws BookLogicException cuando ya existe una review con el id
@@ -72,14 +74,15 @@ public class ReviewResource {
     @POST
     public ReviewDTO createReview(@PathParam("idBook") Long idBook, ReviewDTO review) throws BookLogicException {
         System.out.println("En el servicio: ");
-        System.out.println("idBook "+idBook);
-        System.out.println("review "+review.toString());
+        System.out.println("idBook " + idBook);
+        System.out.println("review " + review.toString());
         return reviewLogic.createReview(idBook, review);
     }
 
     /**
      * Actualiza los datos de una review
      *
+     * @param idBook
      * @param id identificador de la review a modificar
      * @param review review a modificar
      * @return datos de la review modificada
@@ -95,6 +98,7 @@ public class ReviewResource {
     /**
      * Elimina los datos de una review
      *
+     * @param idBook
      * @param id identificador de la review a eliminar
      * @throws BookLogicException cuando no existe una review con el id
      * suministrado

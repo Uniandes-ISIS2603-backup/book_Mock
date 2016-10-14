@@ -10,7 +10,6 @@ import java.util.Date;
 /**
  * Objeto de transferencia de datos de Ciudades.
  *
- * @citi Asistente
  */
 public class AuthorDTO {
 

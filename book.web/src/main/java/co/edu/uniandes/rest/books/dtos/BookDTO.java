@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Objeto de transferencia de datos de Ciudades.
  *
- * @citi Asistente
  */
 public class BookDTO {
 
